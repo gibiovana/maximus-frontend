@@ -1,11 +1,8 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Login from './screens/Login/Login';
+import Tabs from './screens/Login/Tabs';
 
 function App() {
   return (
-    <Login/>
+    <Tabs/>
   );
 }
 

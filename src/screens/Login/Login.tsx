@@ -19,7 +19,6 @@ export default function Login() {
 
   return (
     <div>
-      <h1>Bem-vindo!</h1>
       <div className={classes.margin}>
         <Grid container spacing={1} alignItems="flex-end">
           <Grid item>
