@@ -2,14 +2,18 @@ import React from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-import LockIcon from '@material-ui/icons/Lock';
 import Button from '@material-ui/core/Button';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+import Link from '@material-ui/core/Link';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     margin: {
       margin: theme.spacing(1),
+    },
+    submit: {
+      margin: theme.spacing(3, 0, 2),
     },
   }),
 );
@@ -20,32 +24,43 @@ export default function Login() {
   return (
     <div>
       <div className={classes.margin}>
-        <Grid container spacing={1} alignItems="flex-end">
-          <Grid item>
-            <AccountCircle />
-          </Grid>
-          <Grid item>
-            <TextField id="input-with-icon-grid" label="E-mail" />
-          </Grid>
-        </Grid>
-      </div>
-      <div className={classes.margin}>
-        <Grid container spacing={1} alignItems="flex-end">
-          <Grid item>
-            <LockIcon />
-          </Grid>
-          <Grid item>
-            <TextField id="input-with-icon-grid" label="Senha" />
-          </Grid>
+        <Grid>
+          <TextField
+            id="input-with-icon-grid"
+            label="E-mail"
+            fullWidth />
         </Grid>
       </div>
       <div className={classes.margin}>
         <Grid>
-          <Grid item>
-            <a href="forgot">Esqueceu sua senha?</a>
+          <TextField
+            id="input-with-icon-grid"
+            label="Senha"
+            fullWidth />
+        </Grid>
+        <FormControlLabel
+          control={<Checkbox value="remember" color="primary" />}
+          label="Lembrar meu usuário e senha"
+        />
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          className={classes.submit}
+        >
+          Entrar
+        </Button>
+        <Grid container>
+          <Grid item xs>
+            <Link href="#" variant="body2">
+              Esqueceu sua senha?
+            </Link>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="secondary">Login</Button>
+            <Link href="#" variant="body2">
+              {"Não tem uma conta? Cadastre-se"}
+            </Link>
           </Grid>
         </Grid>
       </div>

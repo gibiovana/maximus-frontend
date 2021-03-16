@@ -1,8 +1,8 @@
-import Tabs from './screens/Login/Tabs';
+import SignInPage from './screens/Login/SignInPage';
 
 function App() {
   return (
-    <Tabs/>
+    <SignInPage/>
   );
 }
 
