@@ -10,6 +10,7 @@ import Tabs from './LoginTabs';
 import background from '../../assets/login.png';
 import logo from '../../assets/logo.png';
 import { Avatar } from '@material-ui/core';
+import "@fontsource/comfortaa/300.css"
 
 function Copyright() {
   return (
@@ -26,7 +27,9 @@ function Copyright() {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh'
+    height: '100vh',
+    fontFamily: 'Comfortaa',
+    font: 'Comfortaa'
   },
   image: {
     backgroundImage: `url(${background})`,
@@ -56,6 +59,10 @@ const useStyles = makeStyles((theme) => ({
   },
   login: {
     backgroundColor: theme.palette.grey[50]
+  },
+  title: {
+    fontFamily: 'Comfortaa',
+    font: 'Comfortaa'
   }
 }));
 
@@ -69,7 +76,7 @@ export default function SignInSide() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.login}>
         <div className={classes.paper}>
           <Avatar className={classes.avatar} src={logo}/>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" className={classes.title}>
             MAXIMUS
           </Typography>
           <form className={classes.form} noValidate>

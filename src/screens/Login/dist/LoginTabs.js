@@ -30,6 +30,7 @@ var Tab_1 = require("@material-ui/core/Tab");
 var Typography_1 = require("@material-ui/core/Typography");
 var Box_1 = require("@material-ui/core/Box");
 var Login_1 = require("./Login");
+require("@fontsource/comfortaa/300.css");
 function TabPanel(props) {
     var children = props.children, value = props.value, index = props.index, other = __rest(props, ["children", "value", "index"]);
     return (react_1["default"].createElement("div", __assign({ role: "tabpanel", hidden: value !== index, id: "scrollable-auto-tabpanel-" + index, "aria-labelledby": "scrollable-auto-tab-" + index }, other), value === index && (react_1["default"].createElement(Box_1["default"], { p: 3 },
@@ -46,7 +47,9 @@ var useStyles = styles_1.makeStyles(function (theme) { return ({
         flexGrow: 1,
         width: '100%',
         backgroundColor: theme.palette.grey[50],
-        boxShadow: '0'
+        boxShadow: '0',
+        fontFamily: 'Comfortaa',
+        font: 'Comfortaa'
     }
 }); });
 function ScrollableTabsButtonAuto() {

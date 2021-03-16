@@ -10,6 +10,7 @@ import background from '../../assets/register.jpg';
 import logo from '../../assets/logo.png';
 import { Avatar } from '@material-ui/core';
 import RegisterTabs from './RegisterTabs';
+import "@fontsource/comfortaa/300.css"
 
 function Copyright() {
   return (
@@ -56,6 +57,10 @@ const useStyles = makeStyles((theme) => ({
   },
   login: {
     backgroundColor: theme.palette.grey[50]
+  },
+  title:{
+    fontFamily: 'Comfortaa',
+    font: 'Comfortaa'
   }
 }));
 
@@ -69,7 +74,7 @@ export default function SignInSide() {
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square className={classes.login}>
         <div className={classes.paper}>
           <Avatar className={classes.avatar} src={logo}/>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" className={classes.title}>
             MAXIMUS
           </Typography>
           <form className={classes.form} noValidate>

@@ -6,6 +6,7 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Login from './Login';
+import "@fontsource/comfortaa/300.css";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,6 +47,8 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: '100%',
     backgroundColor: theme.palette.grey[50],
     boxShadow: '0',
+    fontFamily: 'Comfortaa',
+    font: 'Comfortaa'
   },
 }));
 

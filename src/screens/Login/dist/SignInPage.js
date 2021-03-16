@@ -8,10 +8,10 @@ var Box_1 = require("@material-ui/core/Box");
 var Grid_1 = require("@material-ui/core/Grid");
 var Typography_1 = require("@material-ui/core/Typography");
 var styles_1 = require("@material-ui/core/styles");
-var register_jpg_1 = require("../../assets/register.jpg");
+var LoginTabs_1 = require("./LoginTabs");
+var login_png_1 = require("../../assets/login.png");
 var logo_png_1 = require("../../assets/logo.png");
 var core_1 = require("@material-ui/core");
-var RegisterTabs_1 = require("./RegisterTabs");
 require("@fontsource/comfortaa/300.css");
 function Copyright() {
     return (react_1["default"].createElement(Typography_1["default"], { variant: "body2", color: "textSecondary", align: "center" },
@@ -23,10 +23,12 @@ function Copyright() {
 }
 var useStyles = styles_1.makeStyles(function (theme) { return ({
     root: {
-        height: '100vh'
+        height: '100vh',
+        fontFamily: 'Comfortaa',
+        font: 'Comfortaa'
     },
     image: {
-        backgroundImage: "url(" + register_jpg_1["default"] + ")",
+        backgroundImage: "url(" + login_png_1["default"] + ")",
         backgroundRepeat: 'no-repeat',
         backgroundColor: theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
         backgroundSize: 'cover',
@@ -68,7 +70,7 @@ function SignInSide() {
                 react_1["default"].createElement(core_1.Avatar, { className: classes.avatar, src: logo_png_1["default"] }),
                 react_1["default"].createElement(Typography_1["default"], { component: "h1", variant: "h5", className: classes.title }, "MAXIMUS"),
                 react_1["default"].createElement("form", { className: classes.form, noValidate: true },
-                    react_1["default"].createElement(RegisterTabs_1["default"], null),
+                    react_1["default"].createElement(LoginTabs_1["default"], null),
                     react_1["default"].createElement(Box_1["default"], { mt: 5 },
                         react_1["default"].createElement(Copyright, null)))))));
 }
