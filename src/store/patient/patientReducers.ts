@@ -1,11 +1,12 @@
-import { LOAD_STATUS, SAVE_STATUS, PatientState } from 'store/types';
+import { LOAD_STATUS, SAVE_STATUS, DELETE_STATUS, PatientState } from '../types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { PersonalData } from 'integration/BackendInterfaces';
 
 const initialState: PatientState = {
   loadingStatus: LOAD_STATUS.NONE,
   savingStatus: SAVE_STATUS.NONE,
-  personalData: null,
+  deletingStatus: DELETE_STATUS.NONE,
+  patientList: [],
+  patientData: null,
   existingPatient: false,
 };
 const setLoadingPatient = (state: PatientState): PatientState => {
@@ -50,18 +51,6 @@ const setSavingPatientSuccess = (state: PatientState, action: PayloadAction<any>
     savingStatus: SAVE_STATUS.SUCCESS,
     savingError: null,
     existingPatient: action.payload != null && action.payload.firstAccess,
-  };
-};
-
-const setLoadingPersonalDataSuccess = (
-  state: PatientState,
-  action: PayloadAction<PersonalData>
-): PatientState => {
-  return {
-    ...state,
-    personalData: action.payload,
-    loadingStatus: LOAD_STATUS.SUCCESS,
-    loadingError: null,
   };
 };
 

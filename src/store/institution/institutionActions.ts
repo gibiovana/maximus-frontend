@@ -1,9 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { Action, Store } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import apiCalls from './integration/InstitutionService';
+import apiCalls from '../../integration/InstitutionService';
 import { institutionSlice } from './institutionReducers';
-import FileDownloader from 'js-file-download';
 
 const {
   setLoadingInstitution,
@@ -12,27 +11,13 @@ const {
   setSavingInstitution,
   setSavingInstitutionSuccess,
   setSavingInstitutionFail,
-} = userSlice.actions;
+} = institutionSlice.actions;
 
-export const loadInstitution = () => {
+export const loadInstitutions = () => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingInstitution());
     apiCalls
-      .getInstitution()
-      .then((result: AxiosResponse) => {
-        dispatch(setLoadingInstitutionSuccess(result.data));
-      })
-      .catch(error => {
-        dispatch(setLoadingInstitutionFail(error));
-      });
-  };
-};
-
-export const deleteInstitutionData = () => {
-  return (dispatch: ThunkDispatch<Store, void, Action>) => {
-    dispatch(setLoadingInstitution());
-    apiCalls
-      .deleteInstitutionData()
+      .getInstitutions()
       .then((result: AxiosResponse) => {
         dispatch(setLoadingInstitutionSuccess(result.data));
       })
@@ -54,6 +39,4 @@ export const createInstitution = (userData: any) => {
         dispatch(setSavingInstitutionFail(error));
       });
   };
-};
-
 };

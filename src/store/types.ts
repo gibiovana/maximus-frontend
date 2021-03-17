@@ -5,7 +5,7 @@ import {
   Diagnosis,
   Device,
   CommonErrors
-} from './integration/BackendInterfaces';
+} from '../integration/BackendInterfaces';
 import { UserState as AuthState } from 'redux-oidc';
 
 export enum LOAD_STATUS {
@@ -55,23 +55,23 @@ export interface Store {
   device: DeviceState;
 }
 
-export interface PatientState extends LoadedState, SaveState {
+export interface PatientState extends LoadedState, SaveState, DeleteState {
   patientList: Patient[];
   patientData: Patient | null;
   existingPatient: boolean;
 }
 
-export interface InstitutionState extends LoadedState, SaveState {
+export interface InstitutionState extends LoadedState, SaveState, DeleteState {
   institutionList: Institution[];
   institutionData: Institution | null;
 }
 
-export interface DiagnosisState extends LoadedState, SaveState {
+export interface DiagnosisState extends LoadedState, SaveState, DeleteState {
   diagnosisList: Diagnosis[];
   diagnosisData: Diagnosis | null;
 }
 
-export interface DeviceState extends LoadedState, SaveState {
+export interface DeviceState extends LoadedState, SaveState, DeleteState {
   devicesList: Device[];
   deviceData: Device | null;
 }

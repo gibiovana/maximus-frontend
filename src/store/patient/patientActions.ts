@@ -1,9 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { Action, Store } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import apiCalls from './integration/PatientService';
+import apiCalls from '../../integration/PatientService';
 import { patientSlice } from './patientReducers';
-import FileDownloader from 'js-file-download';
 
 const {
   setLoadingPatient,
@@ -12,7 +11,7 @@ const {
   setSavingPatient,
   setSavingPatientSuccess,
   setSavingPatientFail,
-} = userSlice.actions;
+} = patientSlice.actions;
 
 export const loadPatient = () => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
@@ -28,11 +27,11 @@ export const loadPatient = () => {
   };
 };
 
-export const deletePatientData = () => {
+export const loadPatients = () => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingPatient());
     apiCalls
-      .deletePatientData()
+      .getPatientList()
       .then((result: AxiosResponse) => {
         dispatch(setLoadingPatientSuccess(result.data));
       })
@@ -54,6 +53,4 @@ export const createPatient = (userData: any) => {
         dispatch(setSavingPatientFail(error));
       });
   };
-};
-
 };

@@ -1,9 +1,8 @@
 import { AxiosResponse } from 'axios';
 import { Action, Store } from 'redux';
 import { ThunkDispatch } from 'redux-thunk';
-import apiCalls from './integration/DoctorService';
+import apiCalls from '../../integration/DoctorService';
 import { doctorSlice } from './doctorReducers';
-import FileDownloader from 'js-file-download';
 
 const {
   setLoadingDoctor,
@@ -12,13 +11,13 @@ const {
   setSavingDoctor,
   setSavingDoctorSuccess,
   setSavingDoctorFail,
-} = userSlice.actions;
+} = doctorSlice.actions;
 
-export const loadDoctor = () => {
+export const loadDoctors = () => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingDoctor());
     apiCalls
-      .getDoctor()
+      .getDoctors()
       .then((result: AxiosResponse) => {
         dispatch(setLoadingDoctorSuccess(result.data));
       })
@@ -28,11 +27,11 @@ export const loadDoctor = () => {
   };
 };
 
-export const deleteDoctorData = () => {
+export const loadDoctor = () => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingDoctor());
     apiCalls
-      .deleteDoctorData()
+      .getPersonalData()
       .then((result: AxiosResponse) => {
         dispatch(setLoadingDoctorSuccess(result.data));
       })
@@ -54,6 +53,4 @@ export const createDoctor = (userData: any) => {
         dispatch(setSavingDoctorFail(error));
       });
   };
-};
-
 };

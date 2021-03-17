@@ -1,25 +1,14 @@
 "use strict";
 exports.__esModule = true;
-exports.createInstitution = exports.deleteInstitutionData = exports.loadInstitution = void 0;
-var InstitutionService_1 = require("./integration/InstitutionService");
-var _a = userSlice.actions, setLoadingInstitution = _a.setLoadingInstitution, setLoadingInstitutionSuccess = _a.setLoadingInstitutionSuccess, setLoadingInstitutionFail = _a.setLoadingInstitutionFail, setSavingInstitution = _a.setSavingInstitution, setSavingInstitutionSuccess = _a.setSavingInstitutionSuccess, setSavingInstitutionFail = _a.setSavingInstitutionFail;
-exports.loadInstitution = function () {
+exports.createInstitution = exports.loadInstitutions = void 0;
+var InstitutionService_1 = require("../../integration/InstitutionService");
+var institutionReducers_1 = require("./institutionReducers");
+var _a = institutionReducers_1.institutionSlice.actions, setLoadingInstitution = _a.setLoadingInstitution, setLoadingInstitutionSuccess = _a.setLoadingInstitutionSuccess, setLoadingInstitutionFail = _a.setLoadingInstitutionFail, setSavingInstitution = _a.setSavingInstitution, setSavingInstitutionSuccess = _a.setSavingInstitutionSuccess, setSavingInstitutionFail = _a.setSavingInstitutionFail;
+exports.loadInstitutions = function () {
     return function (dispatch) {
         dispatch(setLoadingInstitution());
         InstitutionService_1["default"]
-            .getInstitution()
-            .then(function (result) {
-            dispatch(setLoadingInstitutionSuccess(result.data));
-        })["catch"](function (error) {
-            dispatch(setLoadingInstitutionFail(error));
-        });
-    };
-};
-exports.deleteInstitutionData = function () {
-    return function (dispatch) {
-        dispatch(setLoadingInstitution());
-        InstitutionService_1["default"]
-            .deleteInstitutionData()
+            .getInstitutions()
             .then(function (result) {
             dispatch(setLoadingInstitutionSuccess(result.data));
         })["catch"](function (error) {
@@ -39,4 +28,3 @@ exports.createInstitution = function (userData) {
         });
     };
 };
-;

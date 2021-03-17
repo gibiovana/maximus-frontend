@@ -1,12 +1,12 @@
-import { LOAD_STATUS, SAVE_STATUS, InstitutionState } from 'store/types';
+import { LOAD_STATUS, SAVE_STATUS, DELETE_STATUS, InstitutionState } from '../types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { PersonalData } from 'integration/BackendInterfaces';
 
 const initialState: InstitutionState = {
   loadingStatus: LOAD_STATUS.NONE,
   savingStatus: SAVE_STATUS.NONE,
-  personalData: null,
-  existingInstitution: false,
+  deletingStatus: DELETE_STATUS.NONE,
+  institutionList: [], 
+  institutionData: null
 };
 const setLoadingInstitution = (state: InstitutionState): InstitutionState => {
   return {
@@ -27,7 +27,6 @@ const setLoadingInstitutionSuccess = (state: InstitutionState, action: PayloadAc
     ...state,
     loadingStatus: LOAD_STATUS.SUCCESS,
     loadingError: null,
-    existingInstitution: action.payload != null && action.payload.firstAccess, //if we received the user data from the backend it means it exists, or we would have gotten 'null'
   };
 };
 const setSavingInstitution = (state: InstitutionState): InstitutionState => {
@@ -49,19 +48,6 @@ const setSavingInstitutionSuccess = (state: InstitutionState, action: PayloadAct
     ...state,
     savingStatus: SAVE_STATUS.SUCCESS,
     savingError: null,
-    existingInstitution: action.payload != null && action.payload.firstAccess,
-  };
-};
-
-const setLoadingPersonalDataSuccess = (
-  state: InstitutionState,
-  action: PayloadAction<PersonalData>
-): InstitutionState => {
-  return {
-    ...state,
-    personalData: action.payload,
-    loadingStatus: LOAD_STATUS.SUCCESS,
-    loadingError: null,
   };
 };
 

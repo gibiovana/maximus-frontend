@@ -12,13 +12,14 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.institutionSlice = void 0;
-var types_1 = require("store/types");
+var types_1 = require("../types");
 var toolkit_1 = require("@reduxjs/toolkit");
 var initialState = {
     loadingStatus: types_1.LOAD_STATUS.NONE,
     savingStatus: types_1.SAVE_STATUS.NONE,
-    personalData: null,
-    existingInstitution: false
+    deletingStatus: types_1.DELETE_STATUS.NONE,
+    institutionList: [],
+    institutionData: null
 };
 var setLoadingInstitution = function (state) {
     return __assign(__assign({}, state), { loadingStatus: types_1.LOAD_STATUS.LOADING, loadingError: null });
@@ -27,7 +28,7 @@ var setLoadingInstitutionFail = function (state, action) {
     return __assign(__assign({}, state), { loadingStatus: types_1.LOAD_STATUS.ERROR, loadingError: action.payload });
 };
 var setLoadingInstitutionSuccess = function (state, action) {
-    return __assign(__assign({}, state), { loadingStatus: types_1.LOAD_STATUS.SUCCESS, loadingError: null, existingInstitution: action.payload != null && action.payload.firstAccess });
+    return __assign(__assign({}, state), { loadingStatus: types_1.LOAD_STATUS.SUCCESS, loadingError: null });
 };
 var setSavingInstitution = function (state) {
     return __assign(__assign({}, state), { savingStatus: types_1.SAVE_STATUS.SAVING, savingError: null });
@@ -36,10 +37,7 @@ var setSavingInstitutionFail = function (state, action) {
     return __assign(__assign({}, state), { savingStatus: types_1.SAVE_STATUS.ERROR, savingError: action.payload });
 };
 var setSavingInstitutionSuccess = function (state, action) {
-    return __assign(__assign({}, state), { savingStatus: types_1.SAVE_STATUS.SUCCESS, savingError: null, existingInstitution: action.payload != null && action.payload.firstAccess });
-};
-var setLoadingPersonalDataSuccess = function (state, action) {
-    return __assign(__assign({}, state), { personalData: action.payload, loadingStatus: types_1.LOAD_STATUS.SUCCESS, loadingError: null });
+    return __assign(__assign({}, state), { savingStatus: types_1.SAVE_STATUS.SUCCESS, savingError: null });
 };
 exports.institutionSlice = toolkit_1.createSlice({
     initialState: initialState,

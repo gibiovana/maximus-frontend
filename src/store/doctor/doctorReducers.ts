@@ -1,13 +1,14 @@
-import { LOAD_STATUS, SAVE_STATUS, DoctorState } from 'store/types';
+import { LOAD_STATUS, SAVE_STATUS, DELETE_STATUS, DoctorState } from '../types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { PersonalData } from 'integration/BackendInterfaces';
 
 const initialState: DoctorState = {
   loadingStatus: LOAD_STATUS.NONE,
   savingStatus: SAVE_STATUS.NONE,
-  personalData: null,
-  existingDoctor: false,
+  deletingStatus: DELETE_STATUS.NONE,
+  doctorsList: [],
+
 };
+
 const setLoadingDoctor = (state: DoctorState): DoctorState => {
   return {
     ...state,
@@ -27,7 +28,6 @@ const setLoadingDoctorSuccess = (state: DoctorState, action: PayloadAction<any>)
     ...state,
     loadingStatus: LOAD_STATUS.SUCCESS,
     loadingError: null,
-    existingDoctor: action.payload != null && action.payload.firstAccess, //if we received the user data from the backend it means it exists, or we would have gotten 'null'
   };
 };
 const setSavingDoctor = (state: DoctorState): DoctorState => {
@@ -49,21 +49,9 @@ const setSavingDoctorSuccess = (state: DoctorState, action: PayloadAction<any>):
     ...state,
     savingStatus: SAVE_STATUS.SUCCESS,
     savingError: null,
-    existingDoctor: action.payload != null && action.payload.firstAccess,
   };
 };
 
-const setLoadingPersonalDataSuccess = (
-  state: DoctorState,
-  action: PayloadAction<PersonalData>
-): DoctorState => {
-  return {
-    ...state,
-    personalData: action.payload,
-    loadingStatus: LOAD_STATUS.SUCCESS,
-    loadingError: null,
-  };
-};
 
 export const doctorSlice = createSlice({
   initialState,
