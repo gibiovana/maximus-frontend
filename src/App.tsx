@@ -6,12 +6,11 @@ function App() {
   return (
     <>
     <BrowserRouter>
-            <Switch>
-              <Route path="/register" exact component={SignUpPage} />
-              <Route path="/" component={SignInPage} />
-            </Switch>
-          </BrowserRouter>
-    <SignInPage/>
+      <Switch>
+        <Route path="/register" exact component={SignUpPage} />
+        <Route path="/" component={SignInPage} />
+      </Switch>
+    </BrowserRouter>
   </>
   );
 }

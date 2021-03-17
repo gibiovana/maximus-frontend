@@ -8,7 +8,6 @@ function App() {
         React.createElement(react_router_dom_1.BrowserRouter, null,
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/register", exact: true, component: SignUpPage_1["default"] }),
-                React.createElement(react_router_dom_1.Route, { path: "/", component: SignInPage_1["default"] }))),
-        React.createElement(SignInPage_1["default"], null)));
+                React.createElement(react_router_dom_1.Route, { path: "/", component: SignInPage_1["default"] })))));
 }
 exports["default"] = App;
