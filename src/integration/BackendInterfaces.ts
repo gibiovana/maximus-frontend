@@ -1,7 +1,8 @@
 export interface Doctor {
   doctorId: number,
   doctorName: string,
-  doctorCRM: string, 
+  doctorEmail: string,
+  doctorCRM: string,
   password: string,
   patients: Patient[],
   institution: Institution,

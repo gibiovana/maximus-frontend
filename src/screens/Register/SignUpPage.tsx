@@ -77,7 +77,7 @@ export default function SignInSide() {
           <Typography component="h1" variant="h5" className={classes.title}>
             MAXIMUS
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form}>
             <RegisterTabs/>
             <Box mt={5}>
               <Copyright />
