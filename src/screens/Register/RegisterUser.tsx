@@ -24,12 +24,10 @@ export default function Login() {
   const onSubmit = (data: any) => doctorActions.createDoctor(data);
 
   return (
-    <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.margin}>
           <Grid>
             <TextField
-              id="input-with-icon-grid"
               label="Nome completo"
               name="FullName"
               inputRef={register}
@@ -39,7 +37,6 @@ export default function Login() {
         <div className={classes.margin}>
           <Grid>
             <TextField
-              id="input-with-icon-grid"
               label="CRM"
               name="CRM"
               inputRef={register}
@@ -49,7 +46,6 @@ export default function Login() {
         <div className={classes.margin}>
           <Grid>
             <TextField
-              id="input-with-icon-grid"
               label="E-mail institucional"
               name="Email"
               inputRef={register}
@@ -59,7 +55,6 @@ export default function Login() {
         <div className={classes.margin}>
           <Grid>
             <TextField
-              id="input-with-icon-grid"
               label="Senha"
               name="Password"
               type="password"
@@ -81,6 +76,5 @@ export default function Login() {
           </Grid>
         </div>
       </form>
-    </div>
   );
 }
