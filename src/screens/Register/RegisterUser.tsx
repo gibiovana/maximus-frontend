@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import Alert from '@material-ui/lab/Alert';
 import { useForm } from "react-hook-form";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
@@ -18,55 +19,113 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
+interface FormData {
+  name: string,
+  email: string,
+  crm: string,
+  password: string
+}
+
 export default function Login() {
   const classes = useStyles();
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data: any) => doctorActions.createDoctor(data);
+  const { register, handleSubmit, errors } = useForm<FormData>();
+  const [submitting, setSubmitting] = useState<boolean>(false);
+  const [serverErrors, setServerErrors] = useState<Array<string>>([]);
+  
+  const mapServerErrors = (serverErrors: Array<string>) => {
+    serverErrors.map(error => <Alert severity="error" variant="filled">{error}</Alert>)};
 
   return (
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit( async(formData) => {
+        setSubmitting(true);
+        setServerErrors([]);
+
+        const response = await fetch("/api/auth", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            crm: formData.crm,
+            email: formData.email,
+            password: formData.password
+          })
+        });
+        
+        doctorActions.createDoctor(response)
+        const data = await response.json();
+        
+        if(data.errors){
+          setServerErrors(data.errors);
+        }else{
+          console.log("Success, redirect to home page");
+        }
+
+        setSubmitting(false);
+        })}>
+        
+        {serverErrors ? mapServerErrors(serverErrors) : null }
+          
         <div className={classes.margin}>
           <Grid>
             <TextField
+              name="name"
+              id="name"
               label="Nome completo"
-              name="FullName"
-              inputRef={register}
+              inputRef={register({
+                required: "required"
+              })}
               fullWidth />
           </Grid>
+          {errors.name ? <div>{errors.name.message}</div> : null}
         </div>
         <div className={classes.margin}>
           <Grid>
             <TextField
+              name="crm"
+              id="crm"
               label="CRM"
-              name="CRM"
-              inputRef={register}
+              inputRef={register({
+                required: "required"
+              })}
               fullWidth />
           </Grid>
+          {errors.crm ? <div>{errors.crm.message}</div> : null}
         </div>
         <div className={classes.margin}>
           <Grid>
             <TextField
+              name="email"
+              id="email"
               label="E-mail institucional"
-              name="Email"
-              inputRef={register}
+              inputRef={register({
+                required: "required"
+              })}
               fullWidth />
           </Grid>
+          {errors.email ? <div>{errors.email.message}</div> : null}
         </div>
         <div className={classes.margin}>
           <Grid>
             <TextField
+              name="password"
+              id="password"
               label="Senha"
-              name="Password"
               type="password"
-              inputRef={register}
-              fullWidth />
+              inputRef={register({
+                required: "required"
+              })}
+              fullWidth />  
           </Grid>
+          {errors.password ? <div>{errors.password.message}</div> : null}
           <Button
             type="submit"
             fullWidth
             variant="contained"
             color="primary"
-            className={classes.submit}>
+            className={classes.submit}
+            disabled={submitting}>
             Cadastrar
           </Button>
           <Grid item>
