@@ -4,7 +4,7 @@ import { Doctor } from './BackendInterfaces';
 
 export default {
   getDoctors: (): Promise<AxiosResponse<void>> => {
-    return api.get('/doctors');
+    return api.get('/doctor/all');
   },
   registerDoctor: (userData: any): Promise<AxiosResponse<void>> => api.post('/doctors', userData),
   

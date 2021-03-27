@@ -1,18 +1,12 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import SignInPage from './screens/Login/SignInPage';
-import SignUpPage from './screens/Register/SignUpPage';
+import { withRedux } from './decorators/WithRedux';
+import { store } from './store/store';
+import { compose } from 'redux';
+import Maximus from './screens/Maximus';
 
-function App() {
-  return (
-    <>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/register" component={SignUpPage} />
-        <Route path="/" component={SignInPage} />
-      </Switch>
-    </BrowserRouter>
-  </>
-  );
+const App: React.FC = () => {
+  return <Maximus/>;
 }
 
-export default App;
+const composeApp = compose(withRedux(store))(App);
+
+export default composeApp;

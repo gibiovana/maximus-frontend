@@ -7,8 +7,7 @@ var redux_oidc_1 = require("redux-oidc");
 exports.store = toolkit_1.configureStore({
     reducer: {
         doctor: doctorReducers_1["default"],
-        auth: redux_oidc_1.reducer,
-        user: userReducers
+        auth: redux_oidc_1.reducer
     },
     middleware: toolkit_1.getDefaultMiddleware({
         serializableCheck: false

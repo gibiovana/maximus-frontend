@@ -1,13 +1,11 @@
 "use strict";
 exports.__esModule = true;
-var react_router_dom_1 = require("react-router-dom");
-var SignInPage_1 = require("./screens/Login/SignInPage");
-var SignUpPage_1 = require("./screens/Register/SignUpPage");
-function App() {
-    return (React.createElement(React.Fragment, null,
-        React.createElement(react_router_dom_1.BrowserRouter, null,
-            React.createElement(react_router_dom_1.Switch, null,
-                React.createElement(react_router_dom_1.Route, { path: "/register", component: SignUpPage_1["default"] }),
-                React.createElement(react_router_dom_1.Route, { path: "/", component: SignInPage_1["default"] })))));
-}
-exports["default"] = App;
+var WithRedux_1 = require("./decorators/WithRedux");
+var store_1 = require("./store/store");
+var redux_1 = require("redux");
+var Maximus_1 = require("./screens/Maximus");
+var App = function () {
+    return React.createElement(Maximus_1["default"], null);
+};
+var composeApp = redux_1.compose(WithRedux_1.withRedux(store_1.store))(App);
+exports["default"] = composeApp;

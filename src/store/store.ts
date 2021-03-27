@@ -12,8 +12,7 @@ export interface Store {
 export const store = configureStore({
   reducer: {
     doctor: doctorReducers,
-    auth: authReducers,
-    user: userReducers
+    auth: authReducers
   },
   middleware: getDefaultMiddleware({
     serializableCheck: false,
