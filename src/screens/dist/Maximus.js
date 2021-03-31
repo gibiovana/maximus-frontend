@@ -13,7 +13,7 @@ var Maximus = function (props) {
         React.createElement(react_router_dom_1.BrowserRouter, null,
             React.createElement(react_router_dom_1.Switch, null,
                 React.createElement(react_router_dom_1.Route, { path: "/register", component: SignUpPage_1["default"] }),
-                React.createElement(react_router_dom_1.Route, { path: "/", component: SignInPage_1["default"] })))));
+                React.createElement(react_router_dom_1.Route, { path: "/login", component: SignInPage_1["default"] })))));
 };
 var mapDispatchToProps = function (dispatch) {
     return {

@@ -44,6 +44,7 @@ export interface DeleteState {
 }
 export interface DoctorState extends LoadedState, SaveState, DeleteState {
   doctorsList: Doctor[];
+  doctorData: Doctor | null;
 }
 
 export interface Store {

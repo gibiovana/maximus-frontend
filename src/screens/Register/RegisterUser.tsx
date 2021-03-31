@@ -20,9 +20,9 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface FormData {
-  name: string,
-  email: string,
-  crm: string,
+  doctorName: string,
+  doctorEmail: string,
+  doctorCRM: string,
   password: string
 }
 
@@ -36,75 +36,48 @@ export default function Login() {
     serverErrors.map(error => <Alert severity="error" variant="filled">{error}</Alert>)};
 
   return (
-      <form onSubmit={handleSubmit( async(formData) => {
-        setSubmitting(true);
-        setServerErrors([]);
-
-        const response = await fetch("/api/auth", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            crm: formData.crm,
-            email: formData.email,
-            password: formData.password
-          })
-        });
-        
-        doctorActions.createDoctor(response)
-        const data = await response.json();
-        
-        if(data.errors){
-          setServerErrors(data.errors);
-        }else{
-          console.log("Success, redirect to home page");
-        }
-
-        setSubmitting(false);
-        })}>
-        
+    
+      <form>
         {serverErrors ? mapServerErrors(serverErrors) : null }
           
         <div className={classes.margin}>
           <Grid>
             <TextField
-              name="name"
-              id="name"
+              name="doctorName"
+              id="doctorName"
               label="Nome completo"
               inputRef={register({
                 required: "required"
               })}
               fullWidth />
           </Grid>
-          {errors.name ? <div>{errors.name.message}</div> : null}
+          {errors.doctorName ? <div>{errors.doctorName.message}</div> : null}
         </div>
         <div className={classes.margin}>
           <Grid>
             <TextField
-              name="crm"
-              id="crm"
+              name="doctorCRM"
+              id="doctorCRM"
               label="CRM"
               inputRef={register({
                 required: "required"
               })}
               fullWidth />
           </Grid>
-          {errors.crm ? <div>{errors.crm.message}</div> : null}
+          {errors.doctorCRM ? <div>{errors.doctorCRM.message}</div> : null}
         </div>
         <div className={classes.margin}>
           <Grid>
             <TextField
-              name="email"
-              id="email"
+              name="doctorEmail"
+              id="doctorEmail"
               label="E-mail institucional"
               inputRef={register({
                 required: "required"
               })}
               fullWidth />
           </Grid>
-          {errors.email ? <div>{errors.email.message}</div> : null}
+          {errors.doctorEmail ? <div>{errors.doctorEmail.message}</div> : null}
         </div>
         <div className={classes.margin}>
           <Grid>
@@ -125,7 +98,38 @@ export default function Login() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={submitting}>
+            disabled={submitting}
+            onClick= {handleSubmit( async(formData) => {
+              setSubmitting(true);
+              setServerErrors([]);
+        
+              const response = await fetch("/doctor/register", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin":  'http://127.0.0.1:3000',
+                  "Access-Control-Allow-Methods": 'POST',
+                  "Access-Control-Allow-Headers": 'Content-Type, Authorization'
+                },
+                body: JSON.stringify({
+                  doctorName: formData.doctorName,
+                  doctorCRM: formData.doctorCRM,
+                  doctorEmail: formData.doctorEmail,
+                  password: formData.password
+                })
+              });
+              
+              doctorActions.createDoctor(response)
+              const data = await response.json();
+              
+              if(data.errors){
+                setServerErrors(data.errors);
+              }else{
+                console.log("Success, redirect to home page");
+              }
+        
+              setSubmitting(false);
+              })}>
             Cadastrar
           </Button>
           <Grid item>

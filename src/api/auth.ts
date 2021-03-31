@@ -1,9 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
 interface FormData {
-  name: string,
-  email: string,
-  crm: string,
+  doctorName: string,
+  doctorEmail: string,
+  doctorCRM: string,
   password: string
 }
 
@@ -25,7 +25,7 @@ async function validateData(formData: FormData): Promise<Array<string>> {
   const errors = [];
   const emails = ["used@email.com"];
 
-  if(emails.includes(formData.email)) {
+  if(emails.includes(formData.doctorEmail)) {
     errors.push("Email already used");
   }
   return errors;

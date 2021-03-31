@@ -7,6 +7,7 @@ import { reducer as authReducers, UserState as AuthState, UserState } from 'redu
 export interface Store {
   doctor: DoctorState;
   user: UserState;
+  auth: AuthState;
 }
 
 export const store = configureStore({

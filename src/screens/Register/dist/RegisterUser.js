@@ -64,68 +64,71 @@ function Login() {
     var mapServerErrors = function (serverErrors) {
         serverErrors.map(function (error) { return react_1["default"].createElement(Alert_1["default"], { severity: "error", variant: "filled" }, error); });
     };
-    return (react_1["default"].createElement("form", { onSubmit: handleSubmit(function (formData) { return __awaiter(_this, void 0, void 0, function () {
-            var response, data;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        setSubmitting(true);
-                        setServerErrors([]);
-                        return [4 /*yield*/, fetch("/api/auth", {
-                                method: "POST",
-                                headers: {
-                                    "Content-Type": "application/json"
-                                },
-                                body: JSON.stringify({
-                                    name: formData.name,
-                                    crm: formData.crm,
-                                    email: formData.email,
-                                    password: formData.password
-                                })
-                            })];
-                    case 1:
-                        response = _a.sent();
-                        doctorActions.createDoctor(response);
-                        return [4 /*yield*/, response.json()];
-                    case 2:
-                        data = _a.sent();
-                        if (data.errors) {
-                            setServerErrors(data.errors);
-                        }
-                        else {
-                            console.log("Success, redirect to home page");
-                        }
-                        setSubmitting(false);
-                        return [2 /*return*/];
-                }
-            });
-        }); }) },
+    return (react_1["default"].createElement("form", null,
         serverErrors ? mapServerErrors(serverErrors) : null,
         react_1["default"].createElement("div", { className: classes.margin },
             react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "name", id: "name", label: "Nome completo", inputRef: register({
+                react_1["default"].createElement(TextField_1["default"], { name: "doctorName", id: "doctorName", label: "Nome completo", inputRef: register({
                         required: "required"
                     }), fullWidth: true })),
-            errors.name ? react_1["default"].createElement("div", null, errors.name.message) : null),
+            errors.doctorName ? react_1["default"].createElement("div", null, errors.doctorName.message) : null),
         react_1["default"].createElement("div", { className: classes.margin },
             react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "crm", id: "crm", label: "CRM", inputRef: register({
+                react_1["default"].createElement(TextField_1["default"], { name: "doctorCRM", id: "doctorCRM", label: "CRM", inputRef: register({
                         required: "required"
                     }), fullWidth: true })),
-            errors.crm ? react_1["default"].createElement("div", null, errors.crm.message) : null),
+            errors.doctorCRM ? react_1["default"].createElement("div", null, errors.doctorCRM.message) : null),
         react_1["default"].createElement("div", { className: classes.margin },
             react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "email", id: "email", label: "E-mail institucional", inputRef: register({
+                react_1["default"].createElement(TextField_1["default"], { name: "doctorEmail", id: "doctorEmail", label: "E-mail institucional", inputRef: register({
                         required: "required"
                     }), fullWidth: true })),
-            errors.email ? react_1["default"].createElement("div", null, errors.email.message) : null),
+            errors.doctorEmail ? react_1["default"].createElement("div", null, errors.doctorEmail.message) : null),
         react_1["default"].createElement("div", { className: classes.margin },
             react_1["default"].createElement(Grid_1["default"], null,
                 react_1["default"].createElement(TextField_1["default"], { name: "password", id: "password", label: "Senha", type: "password", inputRef: register({
                         required: "required"
                     }), fullWidth: true })),
             errors.password ? react_1["default"].createElement("div", null, errors.password.message) : null,
-            react_1["default"].createElement(Button_1["default"], { type: "submit", fullWidth: true, variant: "contained", color: "primary", className: classes.submit, disabled: submitting }, "Cadastrar"),
+            react_1["default"].createElement(Button_1["default"], { type: "submit", fullWidth: true, variant: "contained", color: "primary", className: classes.submit, disabled: submitting, onClick: handleSubmit(function (formData) { return __awaiter(_this, void 0, void 0, function () {
+                    var response, data;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                setSubmitting(true);
+                                setServerErrors([]);
+                                return [4 /*yield*/, fetch("/doctor/register", {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "Access-Control-Allow-Origin": 'http://127.0.0.1:3000',
+                                            "Access-Control-Allow-Methods": 'POST',
+                                            "Access-Control-Allow-Headers": 'Content-Type, Authorization'
+                                        },
+                                        body: JSON.stringify({
+                                            doctorName: formData.doctorName,
+                                            doctorCRM: formData.doctorCRM,
+                                            doctorEmail: formData.doctorEmail,
+                                            password: formData.password
+                                        })
+                                    })];
+                            case 1:
+                                response = _a.sent();
+                                doctorActions.createDoctor(response);
+                                return [4 /*yield*/, response.json()];
+                            case 2:
+                                data = _a.sent();
+                                if (data.errors) {
+                                    setServerErrors(data.errors);
+                                }
+                                else {
+                                    console.log("Success, redirect to home page");
+                                }
+                                setSubmitting(false);
+                                return [2 /*return*/];
+                        }
+                    });
+                }); }) }, "Cadastrar"),
             react_1["default"].createElement(Grid_1["default"], { item: true },
                 react_1["default"].createElement(core_1.Link, { href: "/", variant: "body2" }, "Já possui uma conta? Efetue login")))));
 }

@@ -18,7 +18,8 @@ var initialState = {
     loadingStatus: types_1.LOAD_STATUS.NONE,
     savingStatus: types_1.SAVE_STATUS.NONE,
     deletingStatus: types_1.DELETE_STATUS.NONE,
-    doctorsList: []
+    doctorsList: [],
+    doctorData: null
 };
 var setLoadingDoctor = function (state) {
     return __assign(__assign({}, state), { loadingStatus: types_1.LOAD_STATUS.LOADING, loadingError: null });

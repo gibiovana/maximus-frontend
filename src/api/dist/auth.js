@@ -62,7 +62,7 @@ function validateData(formData) {
         return __generator(this, function (_a) {
             errors = [];
             emails = ["used@email.com"];
-            if (emails.includes(formData.email)) {
+            if (emails.includes(formData.doctorEmail)) {
                 errors.push("Email already used");
             }
             return [2 /*return*/, errors];

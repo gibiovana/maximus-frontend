@@ -6,7 +6,7 @@ const initialState: DoctorState = {
   savingStatus: SAVE_STATUS.NONE,
   deletingStatus: DELETE_STATUS.NONE,
   doctorsList: [],
-
+  doctorData: null,
 };
 
 const setLoadingDoctor = (state: DoctorState): DoctorState => {

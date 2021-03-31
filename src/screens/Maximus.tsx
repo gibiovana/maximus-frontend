@@ -20,7 +20,7 @@ const Maximus = (props: PropsFromActions) => {
     <BrowserRouter>
       <Switch>
         <Route path="/register" component={SignUpPage} />
-        <Route path="/" component={SignInPage} />
+        <Route path="/login" component={SignInPage} />
       </Switch>
     </BrowserRouter>
   </>
