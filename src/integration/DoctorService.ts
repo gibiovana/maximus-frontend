@@ -8,7 +8,7 @@ export default {
   },
   registerDoctor: (userData: any): Promise<AxiosResponse<void>> => api.post('/doctors', userData),
   
-  getPersonalData: (): Promise<AxiosResponse<Doctor>> => {
-    return api.get('/doctor/report');
+  getPersonalData: (userData: any): Promise<AxiosResponse<Doctor>> => {
+    return api.get('/doctor/login/', userData);
   },
 };

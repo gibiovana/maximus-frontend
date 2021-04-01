@@ -27,11 +27,11 @@ export const loadDoctors = () => {
   };
 };
 
-export const loadDoctor = () => {
+export const loadDoctor = (userData: Response) => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingDoctor());
     apiCalls
-      .getPersonalData()
+      .getPersonalData(userData)
       .then((result: AxiosResponse) => {
         dispatch(setLoadingDoctorSuccess(result.data));
       })
@@ -41,7 +41,7 @@ export const loadDoctor = () => {
   };
 };
 
-export const createDoctor = (userData: any) => {
+export const createDoctor = (userData: Response) => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setSavingDoctor());
     apiCalls

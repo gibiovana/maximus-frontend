@@ -16,11 +16,11 @@ exports.loadDoctors = function () {
         });
     };
 };
-exports.loadDoctor = function () {
+exports.loadDoctor = function (userData) {
     return function (dispatch) {
         dispatch(setLoadingDoctor());
         DoctorService_1["default"]
-            .getPersonalData()
+            .getPersonalData(userData)
             .then(function (result) {
             dispatch(setLoadingDoctorSuccess(result.data));
         })["catch"](function (error) {

@@ -38,13 +38,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var react_1 = require("react");
 var styles_1 = require("@material-ui/core/styles");
-var Alert_1 = require("@material-ui/lab/Alert");
-var react_hook_form_1 = require("react-hook-form");
 var TextField_1 = require("@material-ui/core/TextField");
 var Grid_1 = require("@material-ui/core/Grid");
 var Button_1 = require("@material-ui/core/Button");
-var core_1 = require("@material-ui/core");
+var FormControlLabel_1 = require("@material-ui/core/FormControlLabel");
+var Checkbox_1 = require("@material-ui/core/Checkbox");
+var Link_1 = require("@material-ui/core/Link");
 var doctorActions = require("../../store/doctor/doctorActions");
+var react_hook_form_1 = require("react-hook-form");
+var Alert_1 = require("@material-ui/lab/Alert");
 var useStyles = styles_1.makeStyles(function (theme) {
     return styles_1.createStyles({
         margin: {
@@ -55,82 +57,60 @@ var useStyles = styles_1.makeStyles(function (theme) {
         }
     });
 });
-function Register() {
+function Login() {
     var _this = this;
     var classes = useStyles();
-    var _a = react_hook_form_1.useForm(), register = _a.register, handleSubmit = _a.handleSubmit, errors = _a.errors;
+    var _a = react_hook_form_1.useForm(), handleSubmit = _a.handleSubmit, errors = _a.errors;
     var _b = react_1.useState(false), submitting = _b[0], setSubmitting = _b[1];
     var _c = react_1.useState([]), serverErrors = _c[0], setServerErrors = _c[1];
+    var _d = react_1.useState(""), loginUsername = _d[0], setLoginUsername = _d[1];
+    var _e = react_1.useState(""), loginPassword = _e[0], setLoginPassword = _e[1];
     var mapServerErrors = function (serverErrors) {
         serverErrors.map(function (error) { return react_1["default"].createElement(Alert_1["default"], { severity: "error", variant: "filled" }, error); });
     };
+    var mapInputErrors = function (inputErrorMessage) {
+        react_1["default"].createElement(Alert_1["default"], { severity: "error", variant: "filled" }, inputErrorMessage);
+    };
     var onButtonClick = handleSubmit(function (formData) { return __awaiter(_this, void 0, void 0, function () {
-        var response, data;
+        var response;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
                     setSubmitting(true);
                     setServerErrors([]);
-                    return [4 /*yield*/, fetch("/doctor/register", {
-                            method: "POST",
+                    return [4 /*yield*/, fetch("/doctor/login/" + loginUsername + "?" + loginPassword, {
+                            method: "GET",
                             headers: {
                                 "Content-Type": "application/json",
                                 "Access-Control-Allow-Origin": 'http://127.0.0.1:3000',
-                                "Access-Control-Allow-Methods": 'POST',
+                                "Access-Control-Allow-Methods": 'GET',
                                 "Access-Control-Allow-Headers": 'Content-Type, Authorization'
-                            },
-                            body: JSON.stringify({
-                                doctorName: formData.doctorName,
-                                doctorCRM: formData.doctorCRM,
-                                doctorEmail: formData.doctorEmail,
-                                password: formData.password
-                            })
+                            }
                         })];
                 case 1:
                     response = _a.sent();
-                    doctorActions.createDoctor(response);
-                    return [4 /*yield*/, response.json()];
-                case 2:
-                    data = _a.sent();
-                    if (data.errors) {
-                        setServerErrors(data.errors);
-                    }
-                    else {
-                        console.log("Success, redirect to home page");
-                    }
+                    doctorActions.loadDoctor(response);
                     setSubmitting(false);
                     return [2 /*return*/];
             }
         });
     }); });
-    return (react_1["default"].createElement("form", null,
-        serverErrors ? mapServerErrors(serverErrors) : null,
+    return (react_1["default"].createElement("div", null,
+        react_1["default"].createElement("div", { className: classes.margin },
+            serverErrors ? mapServerErrors(serverErrors) : null,
+            react_1["default"].createElement(Grid_1["default"], null,
+                react_1["default"].createElement(TextField_1["default"], { id: "input-with-icon-grid", label: "E-mail", onChange: function (e) { return setLoginUsername(e.target.value); }, fullWidth: true })),
+            errors.doctorEmail ? mapInputErrors(errors.doctorEmail.message) : null),
         react_1["default"].createElement("div", { className: classes.margin },
             react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "doctorName", id: "doctorName", label: "Nome completo", inputRef: register({
-                        required: "required"
-                    }), fullWidth: true })),
-            errors.doctorName ? react_1["default"].createElement("div", null, errors.doctorName.message) : null),
-        react_1["default"].createElement("div", { className: classes.margin },
-            react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "doctorCRM", id: "doctorCRM", label: "CRM", inputRef: register({
-                        required: "required"
-                    }), fullWidth: true })),
-            errors.doctorCRM ? react_1["default"].createElement("div", null, errors.doctorCRM.message) : null),
-        react_1["default"].createElement("div", { className: classes.margin },
-            react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "doctorEmail", id: "doctorEmail", label: "E-mail institucional", inputRef: register({
-                        required: "required"
-                    }), fullWidth: true })),
-            errors.doctorEmail ? react_1["default"].createElement("div", null, errors.doctorEmail.message) : null),
-        react_1["default"].createElement("div", { className: classes.margin },
-            react_1["default"].createElement(Grid_1["default"], null,
-                react_1["default"].createElement(TextField_1["default"], { name: "password", id: "password", label: "Senha", type: "password", inputRef: register({
-                        required: "required"
-                    }), fullWidth: true })),
-            errors.password ? react_1["default"].createElement("div", null, errors.password.message) : null,
-            react_1["default"].createElement(Button_1["default"], { type: "submit", fullWidth: true, variant: "contained", color: "primary", className: classes.submit, disabled: submitting, onClick: onButtonClick }, "Cadastrar"),
-            react_1["default"].createElement(Grid_1["default"], { item: true },
-                react_1["default"].createElement(core_1.Link, { href: "/", variant: "body2" }, "Já possui uma conta? Efetue login")))));
+                react_1["default"].createElement(TextField_1["default"], { id: "input-with-icon-grid", label: "Senha", onChange: function (e) { return setLoginPassword(e.target.value); }, fullWidth: true })),
+            errors.password ? mapInputErrors(errors.password.message) : null,
+            react_1["default"].createElement(FormControlLabel_1["default"], { control: react_1["default"].createElement(Checkbox_1["default"], { value: "remember", color: "primary" }), label: "Lembrar meu usu\u00E1rio e senha" }),
+            react_1["default"].createElement(Button_1["default"], { type: "submit", fullWidth: true, variant: "contained", color: "primary", disabled: submitting, onClick: onButtonClick, className: classes.submit }, "Entrar"),
+            react_1["default"].createElement(Grid_1["default"], { container: true },
+                react_1["default"].createElement(Grid_1["default"], { item: true, xs: true },
+                    react_1["default"].createElement(Link_1["default"], { href: "#", variant: "body2" }, "Esqueceu sua senha?")),
+                react_1["default"].createElement(Grid_1["default"], { item: true },
+                    react_1["default"].createElement(Link_1["default"], { href: "/register", variant: "body2" }, "Não tem uma conta? Cadastre-se"))))));
 }
-exports["default"] = Register;
+exports["default"] = Login;

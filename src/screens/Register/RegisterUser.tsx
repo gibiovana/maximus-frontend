@@ -26,7 +26,7 @@ interface FormData {
   password: string
 }
 
-export default function Login() {
+export default function Register() {
   const classes = useStyles();
   const { register, handleSubmit, errors } = useForm<FormData>();
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -35,11 +35,41 @@ export default function Login() {
   const mapServerErrors = (serverErrors: Array<string>) => {
     serverErrors.map(error => <Alert severity="error" variant="filled">{error}</Alert>)};
 
-  return (
+  const onButtonClick = handleSubmit( async(formData) => {
+    setSubmitting(true);
+    setServerErrors([]);
+
+    const response = await fetch("/doctor/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin":  'http://127.0.0.1:3000',
+        "Access-Control-Allow-Methods": 'POST',
+        "Access-Control-Allow-Headers": 'Content-Type, Authorization'
+      },
+      body: JSON.stringify({
+        doctorName: formData.doctorName,
+        doctorCRM: formData.doctorCRM,
+        doctorEmail: formData.doctorEmail,
+        password: formData.password
+      })
+    });
     
+    doctorActions.createDoctor(response)
+    const data = await response.json();
+    
+    if(data.errors){
+      setServerErrors(data.errors);
+    }else{
+      console.log("Success, redirect to home page");
+    }
+
+    setSubmitting(false);
+    });
+
+  return (
       <form>
         {serverErrors ? mapServerErrors(serverErrors) : null }
-          
         <div className={classes.margin}>
           <Grid>
             <TextField
@@ -99,37 +129,7 @@ export default function Login() {
             color="primary"
             className={classes.submit}
             disabled={submitting}
-            onClick= {handleSubmit( async(formData) => {
-              setSubmitting(true);
-              setServerErrors([]);
-        
-              const response = await fetch("/doctor/register", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  "Access-Control-Allow-Origin":  'http://127.0.0.1:3000',
-                  "Access-Control-Allow-Methods": 'POST',
-                  "Access-Control-Allow-Headers": 'Content-Type, Authorization'
-                },
-                body: JSON.stringify({
-                  doctorName: formData.doctorName,
-                  doctorCRM: formData.doctorCRM,
-                  doctorEmail: formData.doctorEmail,
-                  password: formData.password
-                })
-              });
-              
-              doctorActions.createDoctor(response)
-              const data = await response.json();
-              
-              if(data.errors){
-                setServerErrors(data.errors);
-              }else{
-                console.log("Success, redirect to home page");
-              }
-        
-              setSubmitting(false);
-              })}>
+            onClick={onButtonClick}>
             Cadastrar
           </Button>
           <Grid item>

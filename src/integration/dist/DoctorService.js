@@ -6,7 +6,7 @@ exports["default"] = {
         return BackendAPI_1.api.get('/doctor/all');
     },
     registerDoctor: function (userData) { return BackendAPI_1.api.post('/doctors', userData); },
-    getPersonalData: function () {
-        return BackendAPI_1.api.get('/doctor/report');
+    getPersonalData: function (userData) {
+        return BackendAPI_1.api.get('/doctor/login/', userData);
     }
 };
