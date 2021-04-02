@@ -8,7 +8,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import * as doctorActions from '../../store/doctor/doctorActions';
 import { useForm } from 'react-hook-form';
-import Alert from '@material-ui/lab/Alert';
+import { useHistory } from 'react-router-dom';
+import WrongCredentialsDialog from './WrongCredentialsDialog';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,66 +30,72 @@ interface FormData {
 
 export default function Login() {
   const classes = useStyles();
-  const { handleSubmit, errors } = useForm<FormData>();
+  let history = useHistory();
+  const { register, handleSubmit } = useForm<FormData>();
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [serverErrors, setServerErrors] = useState<Array<string>>([]);
   const [loginUsername, setLoginUsername] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+  const [open, setOpen] = React.useState(false);
 
-  const mapServerErrors = (serverErrors: Array<string>) => {
-    serverErrors.map(error => <Alert severity="error" variant="filled">{error}</Alert>)
+  const handleClose = () => {
+    setOpen(false);
   };
-  
-  const mapInputErrors = (inputErrorMessage: string | undefined) => {
-    <Alert severity="error" variant="filled">{inputErrorMessage}</Alert>
-  };
-    
-  const onButtonClick = handleSubmit( async(formData) => {
+
+  const handleOpen = () => {
+    setOpen(true);
+  }
+
+  const onButtonClick = handleSubmit(async (formData) => {
     setSubmitting(true);
-    setServerErrors([]);
-    const response = await fetch(`/doctor/login/${loginUsername}?${loginPassword}`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": 'http://127.0.0.1:3000',
-      "Access-Control-Allow-Methods": 'GET',
-      "Access-Control-Allow-Headers": 'Content-Type, Authorization'
-    },
-    // body: JSON.stringify({
-    //   doctorEmail: loginUsername,
-    //   password: loginPassword
-    // })
-  });
-  doctorActions.loadDoctor(response);
-  setSubmitting(false);
+
+    const response = await fetch(`/doctor/login/${loginUsername}&${loginPassword}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": 'http://127.0.0.1:3000',
+        "Access-Control-Allow-Methods": 'GET',
+        "Access-Control-Allow-Headers": 'Content-Type, Authorization'
+      }
+    });
+    doctorActions.loadDoctor(response);
+    setSubmitting(false);
+    if (response.ok) {
+      history.push('/');
+    } else {
+      handleOpen();
+    }
   });
 
   return (
     <div>
       <div className={classes.margin}>
-        {serverErrors ? mapServerErrors(serverErrors) : null }
         <Grid>
           <TextField
             id="input-with-icon-grid"
             label="E-mail"
+            type="email"
+            inputRef={register({
+              required: "Campo obrigatório"
+            })}
             onChange={(e) => setLoginUsername(e.target.value)}
             fullWidth />
         </Grid>
-        {errors.doctorEmail ? mapInputErrors(errors.doctorEmail.message) : null}
       </div>
       <div className={classes.margin}>
         <Grid>
           <TextField
             id="input-with-icon-grid"
             label="Senha"
+            type="password"
+            inputRef={register({
+              required: "Campo obrigatório"
+            })}
             onChange={(e) => setLoginPassword(e.target.value)}
             fullWidth />
         </Grid>
-        {errors.password ? mapInputErrors(errors.password.message) : null}
         <FormControlLabel
           control={<Checkbox value="remember" color="primary" />}
-          label="Lembrar meu usuário e senha"
-        />
+          label="Lembrar meu usuário e senha" />
         <Button
           type="submit"
           fullWidth
@@ -112,6 +119,9 @@ export default function Login() {
           </Grid>
         </Grid>
       </div>
+      <WrongCredentialsDialog
+        openDialog={open}
+        onClose={handleClose} />
     </div>
   )
 }

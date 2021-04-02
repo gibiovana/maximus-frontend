@@ -7,6 +7,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Link } from '@material-ui/core';
 import * as doctorActions from '../../store/doctor/doctorActions';
+import { useHistory } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -28,6 +29,7 @@ interface FormData {
 
 export default function Register() {
   const classes = useStyles();
+  let history = useHistory();
   const { register, handleSubmit, errors } = useForm<FormData>();
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [serverErrors, setServerErrors] = useState<Array<string>>([]);
@@ -61,7 +63,7 @@ export default function Register() {
     if(data.errors){
       setServerErrors(data.errors);
     }else{
-      console.log("Success, redirect to home page");
+      history.push('/login');
     }
 
     setSubmitting(false);
@@ -77,7 +79,7 @@ export default function Register() {
               id="doctorName"
               label="Nome completo"
               inputRef={register({
-                required: "required"
+                required: "Campo obrigatório"
               })}
               fullWidth />
           </Grid>
@@ -90,7 +92,7 @@ export default function Register() {
               id="doctorCRM"
               label="CRM"
               inputRef={register({
-                required: "required"
+                required: "Campo obrigatório"
               })}
               fullWidth />
           </Grid>
@@ -101,9 +103,10 @@ export default function Register() {
             <TextField
               name="doctorEmail"
               id="doctorEmail"
+              type="email"
               label="E-mail institucional"
               inputRef={register({
-                required: "required"
+                required: "Campo obrigatório"
               })}
               fullWidth />
           </Grid>
@@ -117,7 +120,7 @@ export default function Register() {
               label="Senha"
               type="password"
               inputRef={register({
-                required: "required"
+                required: "Campo obrigatório"
               })}
               fullWidth />  
           </Grid>
