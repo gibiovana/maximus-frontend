@@ -10,5 +10,5 @@ export default {
     return api.get('/institution/login/', userData);
   },
   registerInstitution: (userData: any): Promise<AxiosResponse<void>> => 
-    api.post('/institution', userData),
+    api.post('/institution/register', userData),
 };

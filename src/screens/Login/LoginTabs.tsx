@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import Login from './Login';
 import "@fontsource/comfortaa/300.css";
+import InstitutionLogin from './InstitutionLogin';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -78,7 +79,7 @@ export default function ScrollableTabsButtonAuto() {
         <Login/>
       </TabPanel>
       <TabPanel value={value} index={1}>
-        <Login/>
+        <InstitutionLogin/>
       </TabPanel>
     </div>
   );

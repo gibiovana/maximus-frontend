@@ -6,7 +6,7 @@ import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
-import * as doctorActions from '../../store/doctor/doctorActions';
+import * as institutionActions from '../../store/institution/institutionActions';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import WrongCredentialsDialog from './WrongCredentialsDialog';
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface FormData {
-  doctorEmail: string,
+  adminEmail: string,
   password: string
 }
 
@@ -57,7 +57,7 @@ export default function Login() {
         "Access-Control-Allow-Headers": 'Content-Type, Authorization'
       }
     });
-    doctorActions.loadDoctor(response);
+    institutionActions.loadInstitution(response);
     setSubmitting(false);
     if (response.ok) {
       history.push('/');
@@ -72,7 +72,7 @@ export default function Login() {
       <div className={classes.margin}>
         <Grid>
           <TextField
-            id="input-with-icon-grid"
+            id="email"
             label="E-mail"
             type="email"
             inputRef={register({
@@ -85,7 +85,7 @@ export default function Login() {
       <div className={classes.margin}>
         <Grid>
           <TextField
-            id="input-with-icon-grid"
+            id="passowrd"
             label="Senha"
             type="password"
             inputRef={register({
@@ -126,7 +126,3 @@ export default function Login() {
     </div>
   )
 }
-
-
-
-

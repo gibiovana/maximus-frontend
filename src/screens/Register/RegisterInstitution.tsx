@@ -133,7 +133,7 @@ export default function RegisterInstitution() {
           Cadastrar
         </Button>
         <Grid item>
-          <Link href="/" variant="body2">
+          <Link href="/login" variant="body2">
               {"Já possui uma conta? Efetue login"}
           </Link>
         </Grid>

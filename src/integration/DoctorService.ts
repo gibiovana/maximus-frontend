@@ -6,7 +6,7 @@ export default {
   getDoctors: (): Promise<AxiosResponse<void>> => {
     return api.get('/doctor/all');
   },
-  registerDoctor: (userData: any): Promise<AxiosResponse<void>> => api.post('/doctors', userData),
+  registerDoctor: (userData: any): Promise<AxiosResponse<void>> => api.post('/doctor/register', userData),
   
   getPersonalData: (userData: any): Promise<AxiosResponse<Doctor>> => {
     return api.get('/doctor/login/', userData);
