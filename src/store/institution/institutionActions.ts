@@ -27,6 +27,20 @@ export const loadInstitutions = () => {
   };
 };
 
+export const loadInstitution = (userData: Response) => {
+  return (dispatch: ThunkDispatch<Store, void, Action>) => {
+    dispatch(setLoadingInstitution());
+    apiCalls
+      .getInstitution(userData)
+      .then((result: AxiosResponse) => {
+        dispatch(setLoadingInstitutionSuccess(result.data));
+      })
+      .catch(error => {
+        dispatch(setLoadingInstitutionFail(error));
+      });
+  };
+};
+
 export const createInstitution = (userData: any) => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setSavingInstitution());
