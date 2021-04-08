@@ -60,7 +60,7 @@ export default function Login() {
     institutionActions.loadInstitution(response);
     setSubmitting(false);
     if (response.ok) {
-      history.push('/');
+      history.push('/home');
       window.location.reload();
     } else {
       handleOpen();

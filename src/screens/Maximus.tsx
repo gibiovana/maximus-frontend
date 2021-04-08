@@ -6,6 +6,7 @@ import * as doctorActions from '../store/doctor/doctorActions';
 import * as institutionActions from '../store/institution/institutionActions';
 import { connect } from 'react-redux';
 import { LOAD_STATUS } from '../store/types';
+import Home from './Home/Home';
 
 interface PropsFromActions {
   loadDoctors: () => LOAD_STATUS | void;
@@ -26,6 +27,7 @@ const Maximus = (props: PropsFromActions) => {
       <Switch>
         <Route path="/register" component={SignUpPage} />
         <Route path="/login" component={SignInPage} />
+        <Route path="/home" component={Home}/>
       </Switch>
     </BrowserRouter>
   </>
