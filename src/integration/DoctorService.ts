@@ -3,7 +3,7 @@ import { api } from './BackendAPI';
 import { Doctor } from './BackendInterfaces';
 
 export default {
-  getDoctors: (): Promise<AxiosResponse<void>> => {
+  getDoctors: (): Promise<AxiosResponse<Doctor[]>> => {
     return api.get('/doctor/all');
   },
   registerDoctor: (userData: any): Promise<AxiosResponse<void>> => api.post('/doctor/register', userData),
