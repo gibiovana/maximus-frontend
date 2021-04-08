@@ -17,6 +17,7 @@ import HomeButton from './HomeButton';
 import HomeStyles from './HomeStyles.jss';
 import RegisterPatientDialog from '../Dialogs/RegisterPatientDialog';
 import RegisterDeviceDialog from '../Dialogs/RegisterDeviceDialog';
+import { Button } from '@material-ui/core';
 
 export default function Home() {
 	const classes = HomeStyles();
@@ -49,10 +50,10 @@ export default function Home() {
             </Typography>
 				</Grid>
 				<Grid item xs className={classes.actions}>
-					<Link href="/login" variant="body2" component="h1" className={classes.title} style={{ marginRight: '1.5rem', marginTop: '1.2rem' }}>
+					<Button href="/login" className={classes.title} style={{ marginRight: '1rem'}}>
 						{"Sair"}
-					</Link>
-				</Grid>
+					</Button>
+			</Grid>
 			</Grid>
 			<Grid container component="main" className={classes.root}>
 				<CssBaseline />
