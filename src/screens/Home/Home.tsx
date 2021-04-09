@@ -1,6 +1,5 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -54,7 +53,7 @@ export default function Home() {
 		<>
 			<Grid container className={classes.header}>
 				<Grid item xs className={classes.header}>
-					<img className={classes.avatar} src={logo} />
+					<img className={classes.avatar} src={logo} alt="Maximus logo"/>
 					<Typography component="h1" variant="h5" className={classes.title}>
 						MAXIMUS
             </Typography>
@@ -75,7 +74,7 @@ export default function Home() {
 						<Typography component="h5" variant="h6" className={classes.subtitle}>
 							Escolha uma das funcionalidades
                 </Typography>
-						<img src={doctorImage} className={classes.doctor} />
+						<img src={doctorImage} className={classes.doctor} alt="Doctor icon"/>
 					</div>
 				</Grid>
 				<Grid item xs={false} sm={4} md={7} className={classes.functions}>

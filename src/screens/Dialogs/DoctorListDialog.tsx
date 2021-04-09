@@ -1,4 +1,4 @@
-import React, { Dispatch, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -13,10 +13,6 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Doctor } from '../../integration/BackendInterfaces';
-import { connect } from 'react-redux';
-import * as doctorActions from '../../store/doctor/doctorActions';
-import { Store } from '../../store/types';
-
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
