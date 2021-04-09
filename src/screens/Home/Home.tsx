@@ -18,11 +18,13 @@ import HomeStyles from './HomeStyles.jss';
 import RegisterPatientDialog from '../Dialogs/RegisterPatientDialog';
 import RegisterDeviceDialog from '../Dialogs/RegisterDeviceDialog';
 import { Button } from '@material-ui/core';
+import DocumentsDialog from '../Dialogs/DocumentsDialog';
 
 export default function Home() {
 	const classes = HomeStyles();
 	const [ patientDialog, setPatientDialogOpen] = React.useState(false);
 	const [ deviceDialog, setDeviceDialogOpen] = React.useState(false);
+	const [ documentsDialog, setDocumentsDialogOpen] = React.useState(false);
 
 	const openPatientDialog = () => {
 		setPatientDialogOpen(true);
@@ -32,6 +34,10 @@ export default function Home() {
 		setDeviceDialogOpen(true);
 	}
 
+	const openDocumentsDialog = () => {
+		setDocumentsDialogOpen(true);
+	}
+
 	const closePatientDialog = () => {
 		setPatientDialogOpen(false);
 	};
@@ -39,6 +45,10 @@ export default function Home() {
 	const closeDeviceDialog = () => {
 		setDeviceDialogOpen(false);
 	};
+
+	const closeDocumentsDialog = () => {
+		setDocumentsDialogOpen(false);
+	}
 
 	return (
 		<>
@@ -110,7 +120,7 @@ export default function Home() {
 								title="Acessar documentos"
 								description="Documentos necessários para autorização da implementação de Maximus."
 								imageUrl={`${accessDocuments}`}
-								onClick={null} />
+								onClick={openDocumentsDialog} />
 						</Grid>
 					</Grid>
 				</Grid>
@@ -121,6 +131,10 @@ export default function Home() {
 			<RegisterDeviceDialog
 				openDialog={deviceDialog}
 				onClose={closeDeviceDialog} />
+			<DocumentsDialog
+				openDialog={documentsDialog}
+				onClose={closeDocumentsDialog}
+				/>
 		</>
 	);
 }
