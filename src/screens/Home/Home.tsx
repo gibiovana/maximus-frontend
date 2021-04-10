@@ -79,42 +79,42 @@ export default function Home() {
 				</Grid>
 				<Grid item xs={false} sm={4} md={7} className={classes.functions}>
 					<Grid container spacing={1}>
-						<Grid container item xs={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Cadastrar paciente"
 								description="Incluir paciente à Maximus."
 								imageUrl={`${registerPatient}`}
 								onClick={openPatientDialog} />
 						</Grid>
-						<Grid container item xs={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Cadastrar dispositivo"
 								description="Adicionar novo item à lista de dispositivos disponíveis."
 								imageUrl={`${registerDevice}`}
 								onClick={openDeviceDialog} />
 						</Grid>
-						<Grid container item xs={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Vincular paciente ao dispositivo"
 								description="Associar o dispositivo a ser utilizado pelo paciente."
 								imageUrl={`${deviceToPatient}`}
 								onClick={null} />
 						</Grid>
-						<Grid container item xs={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Gerenciar médicos"
 								description="Analisar os profissionais de saúde vinculados à Instituição."
 								imageUrl={`${doctors}`}
 								onClick={null} />
 						</Grid>
-						<Grid container item xs={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={4} lg={4}spacing={3}>
 							<HomeButton
 								title="Gerenciar pacientes"
 								description="Analisar os pacientes vinculados à Instituição."
 								imageUrl={`${child}`}
 								onClick={null} />
 						</Grid>
-						<Grid container item xs={4} spacing={3}>
+						<Grid container item sm={3} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Acessar documentos"
 								description="Documentos necessários para autorização da implementação de Maximus."

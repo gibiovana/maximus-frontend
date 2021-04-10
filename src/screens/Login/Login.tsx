@@ -47,7 +47,7 @@ export default function Login() {
 	const onButtonClick = handleSubmit(async (formData) => {
 		setSubmitting(true);
 
-		const response = await fetch(`/institution/login/${loginUsername}&${loginPassword}`, {
+		const response = await fetch(`/doctor/login/${loginUsername}&${loginPassword}`, {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",

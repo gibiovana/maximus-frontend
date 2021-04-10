@@ -2,6 +2,9 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const HomeStyles = makeStyles((theme) => ({
     root: {
+        '@media (max-width: 1300px)': {
+            overflowY: 'visible',
+        },
         height: '92vh',
         width: '100vw',
         fontFamily: 'Comfortaa',

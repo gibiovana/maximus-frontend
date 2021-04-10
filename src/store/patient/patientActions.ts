@@ -13,11 +13,11 @@ const {
   setSavingPatientFail,
 } = patientSlice.actions;
 
-export const loadPatient = () => {
+export const loadPatient = (userData: Response) => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingPatient());
     apiCalls
-      .getPatient()
+      .getPatient(userData)
       .then((result: AxiosResponse) => {
         dispatch(setLoadingPatientSuccess(result.data));
       })

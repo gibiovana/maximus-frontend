@@ -11,7 +11,7 @@ export interface Doctor {
 
 export interface Patient {
   patientId: number,
-  patientName: string,
+  name: string,
   prontuary: string,
   pathologicalCondition: string,
   height: string,
