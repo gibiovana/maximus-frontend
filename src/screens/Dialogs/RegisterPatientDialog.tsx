@@ -25,6 +25,7 @@ export default function RegisterPatient(props: RegisterPatientProps) {
     newData[id] = event.target.value;
     updatePatientData(newData);
   }
+  
   const onNextClick = () => {
     setDoctorsListOpen(true);
     onClose();

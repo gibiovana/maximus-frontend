@@ -14,6 +14,13 @@ export interface PatientData {
     doctorsAssigned: Doctor[];
 }
 
+export interface DeviceData {
+    deviceId: any,
+    model: string,
+    operatingSystem: string;
+    owner: PatientData | undefined;
+}
+
 export interface Institution {
     institutionId: any,
     institutionName: string,
@@ -51,6 +58,13 @@ export const initialPatientData: PatientData = {
     birthdate: +new Date(),
     institution: initialInstitutionData,
     doctorsAssigned: []
+}
+
+export const initialDeviceData: DeviceData = {
+    deviceId: null,
+    model: '',
+    operatingSystem: '',
+    owner: initialPatientData
 }
 
 export const buildPatient = (patientData: PatientData) => {

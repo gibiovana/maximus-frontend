@@ -71,7 +71,6 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 	const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
 		const selectedId = event.target.value as keyof typeof chosenInstitution;
 		setChosenInstitution(selectedId);
-
 	};
 
 	async function getInstitutions() {
@@ -165,7 +164,7 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 						}}>
 						<option aria-label="None" value="" />
 						{institutions?.map((institution: Institution) => {
-							return <option value={institution.institutionId}>
+							return <option value={institution.institutionId} key={institution.institutionId}>
 								{institution.institutionName}
 							</option>
 						})}
