@@ -1,4 +1,4 @@
-import { Doctor } from "../../../integration/BackendInterfaces";
+import { Diagnosis } from "../../../integration/BackendInterfaces";
 
 export interface PatientData {
     patientId: any,
@@ -10,7 +10,33 @@ export interface PatientData {
     patientHeight: string,
     patientWeight: string,
     birthdate: any,
+    institution: Institution | undefined;
     doctorsAssigned: Doctor[];
+}
+
+export interface Institution {
+    institutionId: any,
+    institutionName: string,
+    cnes: string,
+    doctors: Doctor[],
+}
+
+export interface Doctor{
+    doctorId: number,
+    doctorName: string,
+    doctorEmail: string,
+    doctorCRM: string,
+    password: string,
+    patients: PatientData[],
+    institution: Institution,
+    diagnosis: Diagnosis[],
+}
+
+export const initialInstitutionData: Institution = {
+    institutionId: null,
+    institutionName: '',
+    cnes: '',
+    doctors: [],
 }
 
 export const initialPatientData: PatientData = {
@@ -23,6 +49,7 @@ export const initialPatientData: PatientData = {
     patientHeight: '',
     patientWeight: '',
     birthdate: +new Date(),
+    institution: initialInstitutionData,
     doctorsAssigned: []
 }
 

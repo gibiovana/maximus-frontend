@@ -16,7 +16,8 @@ export interface Patient {
   pathologicalCondition: string,
   height: string,
   weight: string,
-  age: string,
+  birthday: Date,
+  institution: Institution,
   diagnosis: Diagnosis[],
   doctorsAssigned: Doctor[],
   device: Device
@@ -31,8 +32,8 @@ export interface Diagnosis {
 }
 
 export interface Institution {
-    institutionId: number,
-    name: string,
+    institutionId: any,
+    institutionName: string,
     cnes: string,
     doctors: Doctor[],
 }
