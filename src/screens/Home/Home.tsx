@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -7,9 +7,9 @@ import doctorImage from '../../assets/Radiography-amico.png';
 import logo from '../../assets/logo.png';
 import registerPatient from '../../assets/Children-pana.png';
 import registerDevice from '../../assets/Mobile apps-amico.png';
-import deviceToPatient from '../../assets/Devices-rafiki.png';
+//import deviceToPatient from '../../assets/Devices-rafiki.png';
 import accessDocuments from '../../assets/Documents-rafiki.png';
-import child from '../../assets/Child-pana.png';
+//import child from '../../assets/Child-pana.png';
 import doctors from '../../assets/Doctors-pana.png';
 import "@fontsource/comfortaa/300.css"
 import HomeButton from './HomeButton';
@@ -18,12 +18,14 @@ import RegisterPatientDialog from '../Dialogs/RegisterPatientDialog';
 import RegisterDeviceDialog from '../Dialogs/RegisterDeviceDialog';
 import { Button } from '@material-ui/core';
 import DocumentsDialog from '../Dialogs/DocumentsDialog';
+import ManageDoctors from '../Dialogs/ManageDoctors';
 
 export default function Home() {
 	const classes = HomeStyles();
 	const [ patientDialog, setPatientDialogOpen] = React.useState(false);
 	const [ deviceDialog, setDeviceDialogOpen] = React.useState(false);
 	const [ documentsDialog, setDocumentsDialogOpen] = React.useState(false);
+	const [ manageDoctorDialog, setManageDoctorsDialog ] = React.useState(false);
 
 	const openPatientDialog = () => {
 		setPatientDialogOpen(true);
@@ -37,6 +39,10 @@ export default function Home() {
 		setDocumentsDialogOpen(true);
 	}
 
+	const openManageDoctorsDialog = () => {
+		setManageDoctorsDialog(true);
+	}
+
 	const closePatientDialog = () => {
 		setPatientDialogOpen(false);
 	};
@@ -47,6 +53,10 @@ export default function Home() {
 
 	const closeDocumentsDialog = () => {
 		setDocumentsDialogOpen(false);
+	}
+	
+	const closeManageDoctorsDialog = () => {
+		setManageDoctorsDialog(false);
 	}
 
 	return (
@@ -93,27 +103,27 @@ export default function Home() {
 								imageUrl={`${registerDevice}`}
 								onClick={openDeviceDialog} />
 						</Grid>
-						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
+						{/*<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Vincular paciente ao dispositivo"
 								description="Associar o dispositivo a ser utilizado pelo paciente."
 								imageUrl={`${deviceToPatient}`}
 								onClick={null} />
-						</Grid>
+						</Grid>*/}
 						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Gerenciar médicos"
 								description="Analisar os profissionais de saúde vinculados à Instituição."
 								imageUrl={`${doctors}`}
-								onClick={null} />
-						</Grid>
-						<Grid container item sm={6} xs={6} md={4} lg={4}spacing={3}>
+								onClick={openManageDoctorsDialog} />
+					</Grid>
+						{/*<Grid container item sm={6} xs={6} md={4} lg={4}spacing={3}>
 							<HomeButton
 								title="Gerenciar pacientes"
 								description="Analisar os pacientes vinculados à Instituição."
 								imageUrl={`${child}`}
 								onClick={null} />
-						</Grid>
+						</Grid>*/}
 						<Grid container item sm={3} xs={6} md={4} lg={4} spacing={3}>
 							<HomeButton
 								title="Acessar documentos"
@@ -132,8 +142,10 @@ export default function Home() {
 				onClose={closeDeviceDialog} />
 			<DocumentsDialog
 				openDialog={documentsDialog}
-				onClose={closeDocumentsDialog}
-				/>
+				onClose={closeDocumentsDialog}/>
+			<ManageDoctors
+				openDialog={manageDoctorDialog}
+				onClose={closeManageDoctorsDialog}/>
 		</>
 	);
 }

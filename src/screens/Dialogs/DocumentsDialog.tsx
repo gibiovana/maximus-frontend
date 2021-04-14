@@ -56,7 +56,7 @@ export default function DocumentsDialog(props: DocumentsProps) {
 	}
 	return (
 		<Dialog open={openDialog} onClose={onClose} aria-labelledby="form-dialog-title">
-			<DialogTitle id="form-dialog-title">Cadastrar dispositivo</DialogTitle>
+			<DialogTitle id="form-dialog-title">Documentos</DialogTitle>
 			<DialogContent>
 				<div className={classes.root}>
 					<Accordion>
@@ -83,6 +83,9 @@ export default function DocumentsDialog(props: DocumentsProps) {
 							id="panel2a-header"
 						>
 							<Typography className={classes.heading}>Direitos de uso da imagem</Typography>
+							<IconButton aria-label="delete" onClick={onDownloadDoc}>
+  							<GetAppIcon />
+							</IconButton>
 						</AccordionSummary>
 						<AccordionDetails>
 							<Typography>

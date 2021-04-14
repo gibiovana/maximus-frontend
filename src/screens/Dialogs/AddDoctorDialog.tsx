@@ -14,7 +14,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogActions from '@material-ui/core/DialogActions';
 import { Doctor, Institution } from '../../integration/BackendInterfaces';
 import { PatientData } from './utils/RegisterPatientUtils';
-import * as patientActions from '../../store/patient/patientActions';
+import * as doctorActions from '../../store/doctor/doctorActions';
 import Alert from '@material-ui/lab/Alert';
 import Snackbar from '@material-ui/core/Snackbar';
 import { useForm } from 'react-hook-form';
@@ -32,19 +32,18 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 interface DoctorListDialogProps {
-	patientData: PatientData;
 	openDialog: boolean;
 	onClose: any;
 }
 
 export default function DoctorListDialog(props: DoctorListDialogProps) {
-	const { patientData, openDialog, onClose } = props;
+	const { openDialog, onClose } = props;
 	const classes = useStyles();
 	const [currentDoctors, setCurrentDoctors] = useState([]);
 	const [submitting, setSubmitting] = useState<boolean>(false);
 	const { handleSubmit } = useForm<PatientData>();
 	const [openSuccessMessage, setOpenSuccessMessage] = useState(false);
-	const [assignedDoctors, setAssignedDoctors] = useState([]);
+	const [ assignedDoctors, setAssignedDoctors] = useState([]);
 	const [institutions, setInstitutions] = useState([]);
 	const [chosenInstitution, setChosenInstitution] = useState<number>();
 
@@ -54,6 +53,7 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 	};
 
 	let aux: any = [];
+	let selectedInstitution: Institution | undefined ;
 
 	const handleToggle = (value: Doctor) => () => {
 		const checkbox = document.getElementById('doctorCheckbox') as any;
@@ -65,7 +65,7 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 
 	function findInstitution() {
 		const selected = institutions.find((hospital: Institution) => hospital.institutionId.toString() === chosenInstitution);
-		patientData.institution = selected;
+		selectedInstitution = selected;
 	}
 
 	const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
@@ -119,30 +119,29 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 	const onRegisterClick = handleSubmit(async () => {
 		setSubmitting(true);
 		findInstitution();
-		const response = await fetch("/patient/register", {
-			method: "POST",
+		
+	assignedDoctors.forEach(async (doctor: Doctor) => {
+		const response = await fetch(`/doctor/update/${doctor.doctorId}`, {
+			method: "PUT",
 			headers: {
 				"Content-Type": "application/json; charset=UTF-8",
 				"Access-Control-Allow-Origin": 'http://127.0.0.1:3000',
-				"Access-Control-Allow-Methods": 'POST',
+				"Access-Control-Allow-Methods": 'PUT',
 				"Access-Control-Allow-Headers": 'Content-Type, Authorization'
 			},
 			body: JSON.stringify({
-				name: patientData.name,
-				username: patientData.username,
-				password: patientData.password,
-				prontuary: patientData.prontuary,
-				pathologicalCondition: patientData.pathologicalCondition,
-				patientWeight: patientData.patientWeight,
-				patientHeight: patientData.patientHeight,
-				birthdate: patientData.birthdate,
-				institution: patientData.institution,
-				doctorsAssigned: assignedDoctors
+				doctorId: doctor.doctorId,
+				doctorName: doctor.doctorName,
+				doctorEmail: doctor.doctorEmail,
+				doctorCRM: doctor.doctorCRM,
+				password: doctor.password,
+				patients: doctor.patients,
+				institution: selectedInstitution,
 			})
 		});
 
-		patientActions.createPatient(response);
-
+		doctorActions.updateDoctor(response);
+	})
 		setSubmitting(false);
 		setOpenSuccessMessage(true);
 	});
@@ -206,7 +205,7 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 			</Dialog>
 			<Snackbar open={openSuccessMessage} autoHideDuration={6000} onClose={handleCloseSuccessMessage}>
 				<Alert onClose={handleCloseSuccessMessage} severity="success">
-					Paciente cadastrado!
+				Médico adicionado!
 		</Alert>
 			</Snackbar>
 		</>

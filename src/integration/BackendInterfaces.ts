@@ -5,7 +5,7 @@ export interface Doctor {
   doctorCRM: string,
   password: string,
   patients: Patient[],
-  institution: Institution,
+  institution: Institution | undefined,
   diagnosis: Diagnosis[],
 }
 

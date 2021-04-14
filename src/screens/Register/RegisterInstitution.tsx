@@ -8,7 +8,6 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import * as institutionActions from '../../store/institution/institutionActions';
 
-
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     margin: {
@@ -32,11 +31,9 @@ export default function RegisterInstitution() {
   let history = useHistory();
   const { register, handleSubmit, errors } = useForm<FormData>();
   const [submitting, setSubmitting] = useState<boolean>(false);
-  const [serverErrors, setServerErrors] = useState<Array<string>>([]);
 
   const onButtonClick = handleSubmit( async(formData) => {
     setSubmitting(true);
-    setServerErrors([]);
 
     const response = await fetch("/institution/register", {
       method: "POST",
@@ -57,15 +54,12 @@ export default function RegisterInstitution() {
     institutionActions.createInstitution(response)
     const data = await response.json();
     
-    if(data.errors){
-      setServerErrors(data.errors);
-    }else{
+    if(!data.errors){
       history.push('/login');
     }
 
     setSubmitting(false);
   });
-
 
   return (
     <div>

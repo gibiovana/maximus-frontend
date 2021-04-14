@@ -54,3 +54,17 @@ export const createDoctor = (userData: Response) => {
       });
   };
 };
+
+export const updateDoctor = (userData: Response) => {
+  return (dispatch: ThunkDispatch<Store, void, Action>) => {
+    dispatch(setSavingDoctor());
+    apiCalls
+      .updateDoctor(userData)
+      .then((result: AxiosResponse) => {
+        dispatch(setSavingDoctorSuccess(result.data));
+      })
+      .catch(error => {
+        dispatch(setSavingDoctorFail(error));
+      });
+  };
+};
