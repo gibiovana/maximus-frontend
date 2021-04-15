@@ -80,8 +80,7 @@ export default function DocumentsDialog(props: DocumentsProps) {
 						<AccordionSummary
 							expandIcon={<ExpandMoreIcon />}
 							aria-controls="panel2a-content"
-							id="panel2a-header"
-						>
+							id="panel2a-header">
 							<Typography className={classes.heading}>Direitos de uso da imagem</Typography>
 							<IconButton aria-label="delete" onClick={onDownloadDoc}>
   							<GetAppIcon />
