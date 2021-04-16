@@ -27,6 +27,20 @@ export const loadPatient = (userData: Response) => {
   };
 };
 
+export const loadPatientDetails = (userData: Response) => {
+  return (dispatch: ThunkDispatch<Store, void, Action>) => {
+    dispatch(setLoadingPatient());
+    apiCalls
+      .getPatientDetails(userData)
+      .then((result: AxiosResponse) => {
+        dispatch(setLoadingPatientSuccess(result.data));
+      })
+      .catch(error => {
+        dispatch(setLoadingPatientFail(error));
+      });
+  };
+};
+
 export const loadPatients = () => {
   return (dispatch: ThunkDispatch<Store, void, Action>) => {
     dispatch(setLoadingPatient());

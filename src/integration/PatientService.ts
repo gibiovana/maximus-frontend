@@ -12,6 +12,10 @@ export default {
     return api.get('/patient/login', userData);
   },
 
+  getPatientDetails: (userId: any): Promise<AxiosResponse<Patient>> => {
+    return api.get('/patient/', userId);
+  },
+
   getPatientFromInstitution: (institutionData: any): Promise<AxiosResponse<Patient>> => {
     return api.get('/patient/', institutionData);
   },
