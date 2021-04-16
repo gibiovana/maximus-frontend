@@ -42,7 +42,7 @@ export default function Home() {
 						<img src={doctorImage} className={classes.doctor} alt="Doctor icon"/>
 					</div>
 				</Grid>
-				<Grid item xs={false} sm={4} md={7} className={classes.functions}>
+				<Grid item xs={false} sm={4} md={7} className={classes.functions} style={{ justifyContent: 'center', alignItems: 'center'}} >
 					<PatientList></PatientList>
 				</Grid>
 			</Grid>

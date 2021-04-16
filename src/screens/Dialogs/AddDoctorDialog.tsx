@@ -114,7 +114,7 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 	useEffect(() => {
 		getDoctors();
 		getInstitutions();
-	}, []);
+	}, [assignedDoctors]);
 
 	const onRegisterClick = handleSubmit(async () => {
 		setSubmitting(true);

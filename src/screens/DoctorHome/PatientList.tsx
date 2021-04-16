@@ -1,67 +1,46 @@
+/* eslint-disable no-use-before-define */
 import React, { useEffect, useState } from 'react';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
 import { Patient } from '../../integration/BackendInterfaces';
-import { useHistory } from 'react-router-dom';
-import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import List from '@material-ui/core/List';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItem from '@material-ui/core/ListItem';
+import Avatar from '@material-ui/core/Avatar';
+import ListItemText from '@material-ui/core/ListItemText/ListItemText';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
+import { useHistory } from 'react-router-dom';
+import * as patientActions from '../../store/patient/patientActions';
 
-interface Column {
-	id: 'name' | 'prontuary' | 'pathologicalCondition';
-	label: string;
-	minWidth?: number;
-	align?: 'right';
-	format?: (value: number) => string;
-}
 
-const columns: Column[] = [
-	{ id: 'name', label: 'Nome', minWidth: 170 },
-	{ id: 'prontuary', label: 'Prontuário', minWidth: 170 },
-	{
-		id: 'pathologicalCondition',
-		label: 'Condição patológica',
-		minWidth: 170,
-	}
-];
+const useStyles = makeStyles((theme: Theme) =>
+	createStyles({
+		root: {
+			maxHeight: '30rem',
+			margin: '5rem',
+			backgroundColor: '#FFFFFF',
+		},
+		inline: {
+			display: 'grid',
+		},
+		avatar: {
+			color: '#fff',
+			backgroundColor: '#9732a8',
+		},
+	}),
+);
 
-const useStyles = makeStyles({
-	root: {
-		width: '90%',
-		marginLeft: '3rem',
-		marginTop: '5rem'
-	},
-	container: {
-		maxHeight: 440,
-	},
-	head: {
-		background: '#9e3abd',
-		color: 'white',
-	},
-});
-
-export default function StickyHeadTable() {
-	const classes = useStyles();
-	const [page, setPage] = React.useState(0);
-	const [rowsPerPage, setRowsPerPage] = React.useState(10);
+export default function SearchPatient() {
 	const [patients, setPatients] = useState([]);
-	const [owner, setOwner] = useState<string>();
 	let history = useHistory();
+	const classes = useStyles();
 
-	const openPatientDetails = (event: React.ChangeEvent<{}>, value: string | null) => {
-		const foundPatient = value as keyof typeof owner;
-		setOwner(foundPatient);
-	}
-
-	const onPatientClick = (patient: Patient) => {
-		history.push('/patient' + patient.patientId)
-	}
+	const handleToggle = (value: Patient) => async () => {
+		history.push(`/patient/${value.patientId}`);
+		window.location.reload();
+	};
 
 	async function getPatients() {
 		const response = await fetch(`/patient/all`, {
@@ -86,67 +65,66 @@ export default function StickyHeadTable() {
 		getPatients();
 	}, []);
 
-	const handleChangePage = (event: unknown, newPage: number) => {
-		setPage(newPage);
-	};
-
-	const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setRowsPerPage(+event.target.value);
-		setPage(0);
-	};
-
 	return (
-		<Paper className={classes.root}>
-			<TableContainer className={classes.container}>
-				<Table stickyHeader aria-label="sticky table">
-					<TableHead className={classes.head}>
-						<TableRow>
-							{columns.map((column) => (
-								<TableCell
-									className={classes.head}
-									key={column.id}
-									align={column.align}
-									style={{ minWidth: column.minWidth }}>
-									{column.label}
-								</TableCell>
-							))}
-							<TableCell
-								className={classes.head}>
-							</TableCell>
-						</TableRow>
-					</TableHead>
-					<TableBody>
-						{patients.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((patient: Patient) => {
-							return (
-								<TableRow hover role="checkbox" tabIndex={-1} key={patient.prontuary}>
-									{columns.map((column) => {
-										const value = patient[column.id];
-										return (
-											<TableCell key={column.id} align={column.align}>
-												{column.format && typeof value === 'number' ? column.format(value) : value}
-											</TableCell>
-										);
-									})}
-									<TableCell>
-										<IconButton aria-label="delete">
-											<NavigateNextIcon />
-										</IconButton>
-									</TableCell>
-								</TableRow>
-							);
-						})}
-					</TableBody>
-				</Table>
-			</TableContainer>
-			<TablePagination
-				rowsPerPageOptions={[10, 25, 100]}
-				component="div"
-				count={patients.length}
-				rowsPerPage={rowsPerPage}
-				page={page}
-				onChangePage={handleChangePage}
-				onChangeRowsPerPage={handleChangeRowsPerPage}
-			/>
-		</Paper>
+		<div>
+			<List dense className={classes.root}>
+				{patients?.map((patient: Patient) => {
+					const labelId = `checkbox-list-secondary-label-${patient.patientId}`;
+					return (
+						<ListItem key={patient.patientId} button>
+							<ListItemAvatar>
+								<Avatar
+									alt={`Avatar n°${patient.patientId + 1}`}
+									className={classes.avatar}
+								/>
+							</ListItemAvatar>
+							<ListItemText
+								id={labelId}
+								primary={<React.Fragment>
+									<Typography
+										component="span"
+										variant="body2"
+										className={classes.inline}
+										color="primary"
+									>
+										{`${patient.name}`}
+									</Typography>
+								</React.Fragment>}
+								secondary={
+									<>
+										<React.Fragment>
+											<Typography
+												component="span"
+												variant="body2"
+												className={classes.inline}
+												color="textPrimary"
+											>
+												Prontuário: {`${patient.prontuary}`}
+											</Typography>
+										</React.Fragment>
+										<React.Fragment>
+											<Typography
+												component="span"
+												variant="body2"
+												className={classes.inline}
+												color="textPrimary">
+												Condição patológica: {`${patient.pathologicalCondition}`}
+											</Typography>
+										</React.Fragment>
+									</>
+								} />
+							<ListItemSecondaryAction>
+								<IconButton
+									id="patientButton"
+									aria-label="nextPage"
+									onClick={handleToggle(patient)}>
+									<NavigateNextIcon />
+								</IconButton>
+							</ListItemSecondaryAction>
+						</ListItem>
+					);
+				})}
+			</List>
+		</div>
 	);
 }
