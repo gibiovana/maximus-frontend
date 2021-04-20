@@ -54,3 +54,17 @@ export const createDiagnosis = (diagnosisData: Response) => {
       });
   };
 };
+
+export const loadDiagnosisByPatientId = (patientId: number) => {
+  return (dispatch: ThunkDispatch<Store, void, Action>) => {
+    dispatch(setLoadingDiagnosis());
+    apiCalls
+      .getDeviceByPatientId(patientId)
+      .then((result: AxiosResponse) => {
+        dispatch(setLoadingDiagnosisSuccess(result.data));
+      })
+      .catch(error => {
+        dispatch(setLoadingDiagnosisFail(error));
+      });
+  };
+};

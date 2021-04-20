@@ -27,6 +27,7 @@ import { Store } from '../../store/store';
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import AddDiagnosisDialog from '../Dialogs/AddDiagnosisDialog';
+import DiagnosisCards from './DiagnosisCards';
 
 interface PropsFromDispatch {
   loadPatient: (patientId: any | null) => void;
@@ -39,7 +40,6 @@ interface PropsFromState {
 interface RouteParams {
   id: string;
 }
-
 
 export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
   const { patient, loadPatient } = props;
@@ -83,7 +83,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
               <Typography variant="h5" component="h4" className={classes.profileIcons} >
                 {patient?.name}
               </Typography>
-              <Typography component="p">
+              <Typography component="p" className={classes.pageText}>
                 {patient?.prontuary}
               </Typography>
             </div>
@@ -94,7 +94,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
             </div>
           </div>
           <Divider />
-          <Typography variant="h5" component="h3" style={{margin: '20px'}}>
+          <Typography variant="h5" component="h3" style={{margin: '20px'}} className={classes.pageText}>
             Informações gerais
           </Typography>
           <Divider style={{margin: '0 20px'}} />
@@ -106,6 +106,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <DescriptionIcon className={classes.profileIcons} />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Prontuário"
                     secondary={patient?.prontuary}
                   />
@@ -115,6 +116,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <AnnouncementIcon className={classes.profileIcons} />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Condição patológica"
                     secondary={patient?.pathologicalCondition}
                   />
@@ -128,6 +130,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <CalendarTodayIcon className={classes.profileIcons} />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Data de nascimento"
                     secondary={patient?.birthdate}
                   />
@@ -137,6 +140,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <PhoneIphoneIcon className={classes.profileIcons}  />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Dispositivo"
                     secondary={ patient?.device ? `${patient?.device?.deviceId} - ${patient?.device?.model}` : 'Ainda não foi atribuído um dispositivo a este paciente.'}
                   />
@@ -150,6 +154,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <HeightIcon className={classes.profileIcons} />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Altura"
                     secondary={patient?.patientHeight}
                   />
@@ -159,6 +164,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <FitnessCenterIcon className={classes.profileIcons}  />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Peso"
                     secondary={patient?.patientWeight}
                   />
@@ -172,6 +178,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <AlternateEmailIcon className={classes.profileIcons}  />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Username"
                     secondary={patient?.username}
                   />
@@ -181,6 +188,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
                     <AccountBalanceIcon className={classes.profileIcons}  />
                   </ListItemIcon>
                   <ListItemText
+                    className={classes.pageText}
                     primary="Hospital"
                     secondary={patient?.institution ? patient?.institution?.institutionName : 'Este paciente ainda não foi atribuído a uma Instituição de Saúde'}
                   />
@@ -188,10 +196,14 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
               </List>
             </Grid>
           </Grid>
-          <Typography variant="h5" component="h2" style={{margin: '20px'}}>
+          <Typography variant="h5" component="h2" style={{margin: '20px'}} className={classes.pageText}>
             Diagnósticos recentes
           </Typography>
           <Divider style={{margin: '0 20px'}} />
+          <Grid container spacing={2}>
+            <DiagnosisCards
+              patientData={patient}/>
+          </Grid>
       </div>
       <AddDiagnosisDialog
         patientData={patient}

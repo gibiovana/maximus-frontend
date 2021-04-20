@@ -11,4 +11,8 @@ export default {
   },
   registerDiagnosis: (diagnosisData: any): Promise<AxiosResponse<void>> => api.post('/diagnosis', diagnosisData),
   
+  getDeviceByPatientId: (id: number): Promise<AxiosResponse<Diagnosis>> => {
+    return api.get('diagnosis/patient/' + id)
+  },
+  
 };

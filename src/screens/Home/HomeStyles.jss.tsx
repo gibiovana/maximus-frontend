@@ -65,10 +65,16 @@ const HomeStyles = makeStyles((theme) => ({
     },
     profileIcons: {
         color: '#9732a8',
+        fontFamily: 'Comfortaa',
+        font: 'Comfortaa',
     },
     diagnosisButton: {
         backgroundColor: '#9732a8',
         color: '#FFFFFF'
+    },
+    pageText: {
+        fontFamily: 'Comfortaa',
+        font: 'Comfortaa',
     }
 }));
 

@@ -28,7 +28,7 @@ export interface Patient {
 export interface Diagnosis {
   diagnosisId: number,
   diagnosisDate: Date,
-  description: string,
+  diagnosisDescription: string,
   author: Doctor,
   patient: Patient
 }
