@@ -10,6 +10,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import { IconButton } from '@material-ui/core';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import privacyPolicy from '../../assets/PrivacyPolicy';
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -19,6 +20,8 @@ const useStyles = makeStyles((theme: Theme) =>
 		heading: {
 			fontSize: theme.typography.pxToRem(15),
 			fontWeight: theme.typography.fontWeightRegular,
+			alignItems: 'center',
+			display: 'flex'
 		},
 		summary: {
 			display: 'contents'
@@ -50,7 +53,7 @@ export default function DocumentsDialog(props: DocumentsProps) {
 
 	const onDownloadDoc = () => {
 		var text = document.getElementById('text-val')?.textContent
-		var filename = "hello.txt";
+		var filename = "privacyPolicy.txt";
 
 		download(filename, text);
 	}
@@ -71,8 +74,7 @@ export default function DocumentsDialog(props: DocumentsProps) {
 						</AccordionSummary>
 						<AccordionDetails>
 							<Typography id="text-val">
-								Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
-								sit amet blandit leo lobortis eget.
+								{privacyPolicy}
           		</Typography>
 						</AccordionDetails>
 					</Accordion>
