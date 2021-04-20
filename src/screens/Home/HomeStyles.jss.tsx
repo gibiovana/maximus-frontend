@@ -4,6 +4,7 @@ const HomeStyles = makeStyles((theme) => ({
     root: {
         '@media (max-width: 1300px)': {
             overflowY: 'visible',
+            width: '100vw'
         },
         height: '92vh',
         width: '100vw',

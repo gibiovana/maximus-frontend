@@ -26,6 +26,7 @@ import { useParams } from 'react-router-dom';
 import { Store } from '../../store/store';
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
+import AddDiagnosisDialog from '../Dialogs/AddDiagnosisDialog';
 
 interface PropsFromDispatch {
   loadPatient: (patientId: any | null) => void;
@@ -39,10 +40,20 @@ interface RouteParams {
   id: string;
 }
 
+
 export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
   const { patient, loadPatient } = props;
   let { id } = useParams<RouteParams>();
   const classes = HomeStyles();
+  const [diagnosisDialog, setDiagnosisDialogOpen] = React.useState(false);
+
+  const openDiagnosisDialog = () => {
+    setDiagnosisDialogOpen(true);
+  }
+  
+  const closeDiagnosisDialog = () => {
+    setDiagnosisDialogOpen(false);
+  };
 
   useEffect(() => {
     loadPatient(+id)
@@ -77,7 +88,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
               </Typography>
             </div>
             <div style={{position: 'absolute', right: 30}}>
-              <Button className={classes.diagnosisButton} variant="contained" startIcon={<AddIcon />}>
+              <Button className={classes.diagnosisButton} variant="contained" startIcon={<AddIcon />} onClick={openDiagnosisDialog}>
                 Novo diagnóstico
               </Button>
             </div>
@@ -181,8 +192,12 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
             Diagnósticos recentes
           </Typography>
           <Divider style={{margin: '0 20px'}} />
-
       </div>
+      <AddDiagnosisDialog
+        patientData={patient}
+        openDialog={diagnosisDialog}
+        onClose={closeDiagnosisDialog}
+      ></AddDiagnosisDialog>
     </>
   );
 }

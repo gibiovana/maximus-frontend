@@ -87,7 +87,7 @@ export default function Home() {
 						<img src={doctorImage} className={classes.doctor} alt="Doctor icon" />
 					</div>
 				</Grid>
-				<Grid item xs={false} sm={6} md={7} className={classes.functions} justify="center">
+				<Grid item xs={false} sm={6} md={7} className={classes.functions}>
 					<Grid container spacing={1} alignItems="center" justify="center">
 						<Grid container item sm={6} xs={6} md={6} lg={6} spacing={3}>
 							<HomeButton
@@ -124,7 +124,7 @@ export default function Home() {
 								imageUrl={`${doctors}`}
 								onClick={openManageDoctorsDialog} />
 						</Grid>
-						<Grid container item sm={3} xs={6} md={6} lg={6} spacing={3}>
+						<Grid container item sm={6} xs={6} md={6} lg={6} spacing={3}>
 							<HomeButton
 								title="Acessar documentos"
 								description="Documentos necessários para autorização da implementação de Maximus."
