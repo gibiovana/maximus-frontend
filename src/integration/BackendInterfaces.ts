@@ -14,13 +14,15 @@ export interface Patient {
   name: string,
   prontuary: string,
   pathologicalCondition: string,
-  height: string,
-  weight: string,
-  birthday: Date,
+  patientHeight: string,
+  patientWeight: string,
+  birthdate: Date,
   institution: Institution,
   diagnosis: Diagnosis[],
   doctorsAssigned: Doctor[],
-  device: Device
+  device: Device,
+  username: string,
+  password: string
 }
 
 export interface Diagnosis {

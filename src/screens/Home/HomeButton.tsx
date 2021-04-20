@@ -8,9 +8,9 @@ import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 250,
+    maxWidth: 380,
     marginTop: '1.5rem',
-    marginLeft: '3rem'
+    marginLeft: '2rem'
   },
   actions: {
     display: 'contents',
@@ -35,7 +35,7 @@ export default function HomeButton(props: HomeButtonProps) {
         <CardMedia
           component="img"
           alt="Image"
-          height="180"
+          height="210"
           image={imageUrl}
           title="Image"/>
         <CardContent>

@@ -22,10 +22,10 @@ import ManageDoctors from '../Dialogs/ManageDoctors';
 
 export default function Home() {
 	const classes = HomeStyles();
-	const [ patientDialog, setPatientDialogOpen] = React.useState(false);
-	const [ deviceDialog, setDeviceDialogOpen] = React.useState(false);
-	const [ documentsDialog, setDocumentsDialogOpen] = React.useState(false);
-	const [ manageDoctorDialog, setManageDoctorsDialog ] = React.useState(false);
+	const [patientDialog, setPatientDialogOpen] = React.useState(false);
+	const [deviceDialog, setDeviceDialogOpen] = React.useState(false);
+	const [documentsDialog, setDocumentsDialogOpen] = React.useState(false);
+	const [manageDoctorDialog, setManageDoctorsDialog] = React.useState(false);
 
 	const openPatientDialog = () => {
 		setPatientDialogOpen(true);
@@ -54,7 +54,7 @@ export default function Home() {
 	const closeDocumentsDialog = () => {
 		setDocumentsDialogOpen(false);
 	}
-	
+
 	const closeManageDoctorsDialog = () => {
 		setManageDoctorsDialog(false);
 	}
@@ -63,16 +63,16 @@ export default function Home() {
 		<>
 			<Grid container className={classes.header}>
 				<Grid item xs className={classes.header}>
-					<img className={classes.avatar} src={logo} alt="Maximus logo"/>
+					<img className={classes.avatar} src={logo} alt="Maximus logo" />
 					<Typography component="h1" variant="h5" className={classes.title}>
 						MAXIMUS
             </Typography>
 				</Grid>
 				<Grid item xs className={classes.actions}>
-					<Button href="/login" className={classes.title} style={{ marginRight: '1rem'}}>
+					<Button href="/login" className={classes.title} style={{ marginRight: '1rem' }}>
 						{"Sair"}
 					</Button>
-			</Grid>
+				</Grid>
 			</Grid>
 			<Grid container component="main" className={classes.root}>
 				<CssBaseline />
@@ -84,19 +84,19 @@ export default function Home() {
 						<Typography component="h5" variant="h6" className={classes.subtitle}>
 							Escolha uma das funcionalidades
                 </Typography>
-						<img src={doctorImage} className={classes.doctor} alt="Doctor icon"/>
+						<img src={doctorImage} className={classes.doctor} alt="Doctor icon" />
 					</div>
 				</Grid>
-				<Grid item xs={false} sm={4} md={7} className={classes.functions}>
-					<Grid container spacing={1}>
-						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
+				<Grid item xs={false} sm={6} md={7} className={classes.functions} justify="center">
+					<Grid container spacing={1} alignItems="center" justify="center">
+						<Grid container item sm={6} xs={6} md={6} lg={6} spacing={3}>
 							<HomeButton
 								title="Cadastrar paciente"
 								description="Incluir paciente à Maximus."
 								imageUrl={`${registerPatient}`}
 								onClick={openPatientDialog} />
 						</Grid>
-						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={6} lg={6} spacing={3}>
 							<HomeButton
 								title="Cadastrar dispositivo"
 								description="Adicionar novo item à lista de dispositivos disponíveis."
@@ -110,13 +110,6 @@ export default function Home() {
 								imageUrl={`${deviceToPatient}`}
 								onClick={null} />
 						</Grid>*/}
-						<Grid container item sm={6} xs={6} md={4} lg={4} spacing={3}>
-							<HomeButton
-								title="Gerenciar médicos"
-								description="Analisar os profissionais de saúde vinculados à Instituição."
-								imageUrl={`${doctors}`}
-								onClick={openManageDoctorsDialog} />
-					</Grid>
 						{/*<Grid container item sm={6} xs={6} md={4} lg={4}spacing={3}>
 							<HomeButton
 								title="Gerenciar pacientes"
@@ -124,7 +117,14 @@ export default function Home() {
 								imageUrl={`${child}`}
 								onClick={null} />
 						</Grid>*/}
-						<Grid container item sm={3} xs={6} md={4} lg={4} spacing={3}>
+						<Grid container item sm={6} xs={6} md={6} lg={6} spacing={3}>
+							<HomeButton
+								title="Gerenciar médicos"
+								description="Analisar os profissionais de saúde vinculados à Instituição."
+								imageUrl={`${doctors}`}
+								onClick={openManageDoctorsDialog} />
+						</Grid>
+						<Grid container item sm={3} xs={6} md={6} lg={6} spacing={3}>
 							<HomeButton
 								title="Acessar documentos"
 								description="Documentos necessários para autorização da implementação de Maximus."
@@ -142,10 +142,10 @@ export default function Home() {
 				onClose={closeDeviceDialog} />
 			<DocumentsDialog
 				openDialog={documentsDialog}
-				onClose={closeDocumentsDialog}/>
+				onClose={closeDocumentsDialog} />
 			<ManageDoctors
 				openDialog={manageDoctorDialog}
-				onClose={closeManageDoctorsDialog}/>
+				onClose={closeManageDoctorsDialog} />
 		</>
 	);
 }

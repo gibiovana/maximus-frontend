@@ -10,7 +10,7 @@ export interface PatientData {
     patientHeight: string,
     patientWeight: string,
     birthdate: any,
-    institution: Institution | undefined;
+    institution: Institution;
     doctorsAssigned: Doctor[];
 }
 
@@ -78,6 +78,7 @@ export const buildPatient = (patientData: PatientData) => {
         patientHeight: patientData.patientHeight,
         patientWeight: patientData.patientWeight,
         birthdate: patientData.birthdate,
-        doctorsAssigned: patientData.doctorsAssigned
+        doctorsAssigned: patientData.doctorsAssigned,
+        institution: patientData.institution
     }
 }

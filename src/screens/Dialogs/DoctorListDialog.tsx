@@ -65,7 +65,9 @@ export default function DoctorListDialog(props: DoctorListDialogProps) {
 
 	function findInstitution() {
 		const selected = institutions.find((hospital: Institution) => hospital.institutionId.toString() === chosenInstitution);
-		patientData.institution = selected;
+		if(selected){
+			patientData.institution = selected
+		}
 	}
 
 	const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {

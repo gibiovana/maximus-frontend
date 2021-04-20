@@ -59,6 +59,16 @@ const HomeStyles = makeStyles((theme) => ({
         font: 'Comfortaa',
         color: '#6B6B6B'
     },
+    profile: {
+        backgroundColor: '#F1F1F1'
+    },
+    profileIcons: {
+        color: '#9732a8',
+    },
+    diagnosisButton: {
+        backgroundColor: '#9732a8',
+        color: '#FFFFFF'
+    }
 }));
 
 export default HomeStyles;

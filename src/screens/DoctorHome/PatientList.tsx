@@ -12,8 +12,6 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import { useHistory } from 'react-router-dom';
-import * as patientActions from '../../store/patient/patientActions';
-
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -37,7 +35,7 @@ export default function SearchPatient() {
 	let history = useHistory();
 	const classes = useStyles();
 
-	const handleToggle = (value: Patient) => async () => {
+	const onPatientClick = (value: Patient) => async () => {
 		history.push(`/patient/${value.patientId}`);
 		window.location.reload();
 	};
@@ -117,7 +115,7 @@ export default function SearchPatient() {
 								<IconButton
 									id="patientButton"
 									aria-label="nextPage"
-									onClick={handleToggle(patient)}>
+									onClick={onPatientClick(patient)}>
 									<NavigateNextIcon />
 								</IconButton>
 							</ListItemSecondaryAction>

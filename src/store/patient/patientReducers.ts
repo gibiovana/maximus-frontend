@@ -1,5 +1,6 @@
 import { LOAD_STATUS, SAVE_STATUS, DELETE_STATUS, PatientState } from '../types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { Patient } from '../../integration/BackendInterfaces';
 
 const initialState: PatientState = {
   loadingStatus: LOAD_STATUS.NONE,
@@ -54,6 +55,13 @@ const setSavingPatientSuccess = (state: PatientState, action: PayloadAction<any>
   };
 };
 
+const setSelectedPatient = (state: PatientState, action: PayloadAction<Patient | null>) : PatientState => {
+  return {
+    ...state,
+    patientData: action.payload,
+  };
+};
+
 export const patientSlice = createSlice({
   initialState,
   name: 'patient',
@@ -64,6 +72,7 @@ export const patientSlice = createSlice({
     setSavingPatient,
     setSavingPatientSuccess,
     setSavingPatientFail,
+    setSelectedPatient
   },
 });
 export default patientSlice.reducer;
