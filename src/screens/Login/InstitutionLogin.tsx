@@ -3,13 +3,12 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import * as institutionActions from '../../store/institution/institutionActions';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import WrongCredentialsDialog from './WrongCredentialsDialog';
+import { getToken, login } from '../../api/auth';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -60,6 +59,7 @@ export default function Login() {
     institutionActions.loadInstitution(response);
     setSubmitting(false);
     if (response.ok) {
+      login(getToken());
       history.push('/home');
       window.location.reload();
     } else {
@@ -94,9 +94,6 @@ export default function Login() {
             onChange={(e) => setLoginPassword(e.target.value)}
             fullWidth />
         </Grid>
-        <FormControlLabel
-          control={<Checkbox value="remember" color="primary" />}
-          label="Lembrar meu usuário e senha" />
         <Button
           type="submit"
           fullWidth

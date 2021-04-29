@@ -19,9 +19,12 @@ import RegisterDeviceDialog from '../Dialogs/RegisterDeviceDialog';
 import { Button } from '@material-ui/core';
 import DocumentsDialog from '../Dialogs/DocumentsDialog';
 import ManageDoctors from '../Dialogs/ManageDoctors';
+import { logout } from '../../api/auth';
+import { useHistory } from 'react-router';
 
 export default function Home() {
 	const classes = HomeStyles();
+	let history = useHistory();
 	const [patientDialog, setPatientDialogOpen] = React.useState(false);
 	const [deviceDialog, setDeviceDialogOpen] = React.useState(false);
 	const [documentsDialog, setDocumentsDialogOpen] = React.useState(false);
@@ -59,6 +62,11 @@ export default function Home() {
 		setManageDoctorsDialog(false);
 	}
 
+	const onLogoutClick = () => {
+		logout();
+		history.push('/login');
+	}
+
 	return (
 		<>
 			<Grid container className={classes.header}>
@@ -69,7 +77,7 @@ export default function Home() {
             </Typography>
 				</Grid>
 				<Grid item xs className={classes.actions}>
-					<Button href="/login" className={classes.title} style={{ marginRight: '1rem' }}>
+					<Button onClick={onLogoutClick} className={classes.title} style={{ marginRight: '1rem' }}>
 						{"Sair"}
 					</Button>
 				</Grid>

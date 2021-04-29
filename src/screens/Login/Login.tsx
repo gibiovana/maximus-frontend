@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import { getToken, isAuthenticated, login } from "../../api/auth";
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import * as doctorActions from '../../store/doctor/doctorActions';
 import { useForm } from 'react-hook-form';
@@ -59,7 +58,8 @@ export default function Login() {
 		doctorActions.loadDoctor(response);
 		setSubmitting(false);
 		if (response.ok) {
-			history.push('/');
+			login(getToken());
+			history.push('/patients');
 			window.location.reload();
 		} else {
 			handleOpen();
@@ -93,9 +93,6 @@ export default function Login() {
 						onChange={(e) => setLoginPassword(e.target.value)}
 						fullWidth />
 				</Grid>
-				<FormControlLabel
-					control={<Checkbox value="remember" color="primary" />}
-					label="Lembrar meu usuário e senha" />
 				<Button
 					type="submit"
 					fullWidth

@@ -1,7 +1,8 @@
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import SignInPage from './Login/SignInPage';
 import SignUpPage from './Register/SignUpPage';
-import { Dispatch, useEffect } from 'react';
+import { isAuthenticated } from "../api/auth";
+import React, { Dispatch, useEffect } from 'react';
 import * as doctorActions from '../store/doctor/doctorActions';
 import * as institutionActions from '../store/institution/institutionActions';
 import { connect } from 'react-redux';
@@ -18,11 +19,19 @@ interface PropsFromActions {
 
 const Maximus = (props: PropsFromActions) => {
   const { loadDoctors, loadInstitutions } = props;
-
   useEffect(() => { 
     loadDoctors();
     loadInstitutions();
   }, [loadDoctors, loadInstitutions]);
+
+  const PrivateRoute = ({component, isAuthenticated, ...rest}: any) => {
+    const routeComponent = (props: any) => (
+        isAuthenticated
+            ? React.createElement(component, props)
+            : <Redirect to={{pathname: '/login'}}/>
+    );
+    return <Route {...rest} render={routeComponent}/>;
+};
 
   return (
     <>
@@ -30,9 +39,9 @@ const Maximus = (props: PropsFromActions) => {
       <Switch>
         <Route path="/register" component={SignUpPage} />
         <Route path="/login" component={SignInPage} />
-        <Route path="/home" component={Home}/>
-        <Route path="/patients" component={DoctorHome}/>
-        <Route path="/patient/:id" component={PatientDetails}/>
+        <PrivateRoute path="/home" isAuthenticated={isAuthenticated()} component={Home}/>
+        <PrivateRoute path="/patients" isAuthenticated={isAuthenticated()} component={DoctorHome}/>
+        <PrivateRoute path="/patient/:id" isAuthenticated={isAuthenticated()} component={PatientDetails}/>
         <Route component={NotFound}/>
       </Switch>
     </BrowserRouter>

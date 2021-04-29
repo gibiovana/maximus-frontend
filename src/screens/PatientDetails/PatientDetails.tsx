@@ -22,12 +22,13 @@ import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import AccountBalanceIcon from '@material-ui/icons/AccountBalance';
 import * as patientActions from '../../store/patient/patientActions';
 import { Patient } from '../../integration/BackendInterfaces';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Store } from '../../store/store';
 import { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import AddDiagnosisDialog from '../Dialogs/AddDiagnosisDialog';
 import DiagnosisCards from './DiagnosisCards';
+import { logout } from '../../api/auth';
 
 interface PropsFromDispatch {
   loadPatient: (patientId: any | null) => void;
@@ -45,6 +46,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
   const { patient, loadPatient } = props;
   let { id } = useParams<RouteParams>();
   const classes = HomeStyles();
+  let history = useHistory();
   const [diagnosisDialog, setDiagnosisDialogOpen] = React.useState(false);
 
   const openDiagnosisDialog = () => {
@@ -54,6 +56,11 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
   const closeDiagnosisDialog = () => {
     setDiagnosisDialogOpen(false);
   };
+  
+	const onLogoutClick = () => {
+		logout();
+		history.push('/login');
+	}
 
   useEffect(() => {
     loadPatient(+id)
@@ -71,7 +78,7 @@ export const PatientDetails = (props: PropsFromDispatch & PropsFromState) => {
             </Typography>
         </Grid>
         <Grid item xs className={classes.actions}>
-          <Button href="/login" className={classes.title} style={{ marginRight: '1rem' }}>
+          <Button onClick={onLogoutClick} className={classes.title} style={{ marginRight: '1rem' }}>
             {"Sair"}
           </Button>
         </Grid>

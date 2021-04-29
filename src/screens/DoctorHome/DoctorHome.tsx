@@ -6,14 +6,21 @@ import Typography from '@material-ui/core/Typography';
 import doctorImage from '../../assets/Radiography-amico.png';
 import logo from '../../assets/logo.png';
 import HomeStyles from '../Home/HomeStyles.jss';
-
+import { useHistory } from 'react-router-dom';
 import "@fontsource/comfortaa/300.css";
 import { Button } from '@material-ui/core';
 import PatientList from './PatientList';
+import { logout } from '../../api/auth';
 
 export default function Home() {
 	const classes = HomeStyles();
+	let history = useHistory();
 
+	const onLogoutClick = () => {
+		logout();
+		history.push('/login');
+	}
+	
 	return (
 		<>
 			<Grid container className={classes.header}>
@@ -24,7 +31,7 @@ export default function Home() {
             </Typography>
 				</Grid>
 				<Grid item xs className={classes.actions}>
-					<Button href="/login" className={classes.title} style={{ marginRight: '1rem'}}>
+					<Button onClick={onLogoutClick} className={classes.title} style={{ marginRight: '1rem'}}>
 						{"Sair"}
 					</Button>
 			</Grid>

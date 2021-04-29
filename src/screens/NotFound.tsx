@@ -9,6 +9,8 @@ import Link from '@material-ui/core/Link';
 
 export default function NotFound() {
   const classes = HomeStyles();
+
+
   return (
     <>
       <Grid container className={classes.header}>
@@ -20,14 +22,9 @@ export default function NotFound() {
               MAXIMUS
             </Typography>
         </Grid>
-        <Grid item xs className={classes.actions}>
-          <Button href="/login" className={classes.title} style={{ marginRight: '1rem' }}>
-            {"Sair"}
-          </Button>
-        </Grid>
       </Grid>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', overflowY: 'hidden' }}>
-        <img src={notFound} alt="Not found" style={{ width: '35%', }} />
+        <img src={ notFound } alt="Not found" style={{ width: '35%', }} />
         <h3 style={{ fontFamily: 'Comfortaa', font: 'Comfortaa', color: '#6B6B6B' }}>Woops, there's nothing here!</h3>
       </div>
     </>

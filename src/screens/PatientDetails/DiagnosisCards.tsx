@@ -41,7 +41,6 @@ export default function DiagnosisCards(props: AddDiagnosisProps) {
 	const { patientData } = props;
 	const [diagnosisList, setDiagnosis] = useState([]);
 	const classes = useStyles();
-	const bull = <span className={classes.bullet}>•</span>;
 
 	async function getDiagnosisFromPatient(patientData: Patient | null) {
 		const response = await fetch(`/diagnosis/patient/${patientData?.patientId}`, {
