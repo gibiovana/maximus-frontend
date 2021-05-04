@@ -60,7 +60,6 @@ export default function Login() {
 		if (response.ok) {
 			login(getToken());
 			history.push('/patients');
-			window.location.reload();
 		} else {
 			handleOpen();
 		}
@@ -104,11 +103,6 @@ export default function Login() {
 					Entrar
         </Button>
 				<Grid container>
-					<Grid item xs>
-						<Link href="#" variant="body2">
-							Esqueceu sua senha?
-            </Link>
-					</Grid>
 					<Grid item>
 						<Link href="/register" variant="body2">
 							{"Não tem uma conta? Cadastre-se"}

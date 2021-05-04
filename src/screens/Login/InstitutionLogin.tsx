@@ -61,7 +61,6 @@ export default function Login() {
     if (response.ok) {
       login(getToken());
       history.push('/home');
-      window.location.reload();
     } else {
       handleOpen();
     }
